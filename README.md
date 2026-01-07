@@ -1,6 +1,6 @@
 <div align="center">
   <br />
-  <img src="public/readme/banner.png" alt="Needflex Banner" />
+  <img src="public/readme/banner.webp" alt="Needflex Banner" />
   <br />
 
   <div>
