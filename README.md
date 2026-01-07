@@ -12,7 +12,13 @@
     <img src="https://img.shields.io/badge/TMDB_API-01B4E4?style=for-the-badge" />
   </div>
 
-  <h3 align="center">Needflex</h3>
+  <div align="center">
+    <img
+      src="src/assets/images/logo_full_240.png"
+      alt="Needflex"
+      width="240"
+    />
+  </div>
 
   <p align="center">
     A Netflix-inspired online movie streaming platform built with React,
@@ -42,6 +48,12 @@ The project was built as a **frontend portfolio project** to demonstrate modern 
 
 ---
 
+## 🚀 Demo
+
+**Needflex** is deployed and accessible at: **https://needflex.site**
+
+---
+
 ## ⚙️ Tech Stack
 
 - **React** – Component-based UI development
@@ -57,8 +69,8 @@ The project was built as a **frontend portfolio project** to demonstrate modern 
 - Browse trending, popular, and categorized movies
 - View detailed movie pages with trailers and metadata
 - Stream movies using `.m3u8` sources
-- 🔖 **Continue Watching** – Save and resume movie playback progress per user (Firebase)
-- ❤️ **Favorite Movies** – Save and manage a personal movie watchlist per user (Firebase)
+- Continue Watching – Save and resume movie playback progress per user
+- Favorite Movies – Save and manage a personal movie watchlist per user
 - Firebase Authentication (Email/Password, Google)
 - Responsive Netflix-style UI with optimized loading
 
