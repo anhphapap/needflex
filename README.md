@@ -1,21 +1,22 @@
 <div align="center">
   <br />
-  <img src="public/readme/banner.png" alt="Dev Event Platform Banner" />
+  <img src="public/readme/banner.png" alt="Needflex Banner" />
   <br />
 
   <div>
-    <img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white" />
-    <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" />
+    <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" />
+    <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white" />
     <img src="https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white" />
-    <img src="https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white" />
-    <img src="https://img.shields.io/badge/Cloudinary-002C73?style=for-the-badge&logo=cloudinary&logoColor=white" />
+    <img src="https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black" />
+    <img src="https://img.shields.io/badge/Ophim_API-111827?style=for-the-badge" />
+    <img src="https://img.shields.io/badge/TMDB_API-01B4E4?style=for-the-badge" />
   </div>
 
-  <h3 align="center">Dev Event Platform</h3>
+  <h3 align="center">Needflex</h3>
 
   <p align="center">
-    A full-stack event management platform built with Next.js App Router,
-    focusing on modern server-side rendering, caching strategies, and clean architecture.
+    A Netflix-inspired online movie streaming platform built with React,
+    focusing on performance optimization, modern UI/UX, and real-world frontend architecture.
   </p>
 </div>
 
@@ -27,47 +28,39 @@
 2. ⚙️ Tech Stack
 3. 🔋 Features
 4. 🤸 Quick Start
-5. 🧠 Architecture Overview
-6. 🚀 Future Improvements
+5. 🌐 API Data Sources
+6. 🧠 Architecture Overview
+7. 🚀 Future Improvements
 
 ---
 
 ## ✨ Introduction
 
-**Dev Event Platform** is a full-stack web application designed to manage and showcase events in a modern, scalable, and performant way.
+**Needflex** is a Netflix-inspired movie streaming web application that allows users to explore, watch, and manage movies directly from the browser.
 
-This project was built as a **hands-on learning project** to deeply understand **Next.js App Router**, with a strong focus on:
-
-- Server Components & Server Actions
-- Data fetching and caching strategies
-- MongoDB integration with Mongoose
-- Client / Server component separation
-- Clean and maintainable UI using Tailwind CSS
-
-Users can browse events, view detailed event pages, register for events, and explore similar events.
+The project was built as a **frontend portfolio project** to demonstrate modern React architecture, performance optimization, and real-world user features without a custom backend.
 
 ---
 
 ## ⚙️ Tech Stack
 
-- **Next.js (App Router)**
-- **TypeScript**
-- **Tailwind CSS**
-- **MongoDB**
-- **Mongoose**
-- **Cloudinary**
+- **React** – Component-based UI development
+- **Vite** – Fast build tool and development server
+- **Tailwind CSS** – Utility-first styling framework
+- **Firebase** – Authentication & Cloud Firestore
+- **Public Movie APIs** – Ophim & TMDB
 
 ---
 
 ## 🔋 Features
 
-- Home page listing upcoming and featured events
-- Event detail pages with agenda, tags, and organizer info
-- Secure event booking using Server Actions
-- Similar event recommendations
-- Cloudinary image uploads
-- Optimized caching and revalidation
-- Clean separation of Server and Client Components
+- Browse trending, popular, and categorized movies
+- View detailed movie pages with trailers and metadata
+- Stream movies using `.m3u8` sources
+- 🔖 **Continue Watching** – Save and resume movie playback progress per user (Firebase)
+- ❤️ **Favorite Movies** – Save and manage a personal movie watchlist per user (Firebase)
+- Firebase Authentication (Email/Password, Google)
+- Responsive Netflix-style UI with optimized loading
 
 ---
 
@@ -82,8 +75,8 @@ Users can browse events, view detailed event pages, register for events, and exp
 ### Clone the Repository
 
 ```bash
-git clone <your-github-repository-url>
-cd dev-event-platform
+git clone https://github.com/anhphapap/needflex.git
+cd needflex
 ```
 
 ### Install Dependencies
@@ -94,13 +87,18 @@ npm install
 
 ### Environment Variables
 
-Create a `.env` file in the project root:
+Create a `.env` file from the example:
 
-```env
-NEXT_PUBLIC_BASE_URL=http://localhost:3000
-MONGODB_URI=
-CLOUDINARY_URL=
+```bash
+cp .env.example .env
 ```
+
+Configure Firebase services:
+
+- Enable **Authentication** (Email/Password, Google)
+- Create **Cloud Firestore Database**
+
+Fill in Firebase credentials in the `.env` file.
 
 ### Run the Project
 
@@ -108,27 +106,37 @@ CLOUDINARY_URL=
 npm run dev
 ```
 
-Open http://localhost:3000 in your browser.
+Open **http://localhost:5173** in your browser.
+
+---
+
+## 🌐 API Data Sources
+
+- **Ophim API** – Movie lists, metadata, and streaming sources
+
+  - https://ophim17.cc/api-document
+
+- **TMDB API** – Trending data, posters, backdrops, and extended metadata
+  - https://developer.themoviedb.org
 
 ---
 
 ## 🧠 Architecture Overview
 
-- Server Components handle data fetching and rendering
-- Client Components manage UI state and interactions
-- Server Actions handle mutations securely
-- MongoDB connections are reused safely
-- Fetch-level caching improves performance
+- React Components for UI rendering
+- Context API for global state management
+- Firebase Firestore for user data (watch progress, favorites)
+- External APIs (Ophim, TMDB) for movie content
+- Frontend-only architecture without a custom backend
 
 ---
 
 ## 🚀 Future Improvements
 
-- Authentication and authorization
-- Booking confirmation emails
-- Admin dashboard
+- Watch history and recommendations
 - Advanced search and filtering
-- Pagination and performance enhancements
+- Multi-language support
+- PWA support
 
 ---
 
