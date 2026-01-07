@@ -12,13 +12,7 @@
     <img src="https://img.shields.io/badge/TMDB_API-01B4E4?style=for-the-badge" />
   </div>
 
-  <div align="center">
-    <img
-      src="src/assets/images/logo_full_240.png"
-      alt="Needflex"
-      width="240"
-    />
-  </div>
+  <h3 align="center">Needflex</h3>
 
   <p align="center">
     A Netflix-inspired online movie streaming platform built with React,
@@ -67,6 +61,7 @@ The project was built as a **frontend portfolio project** to demonstrate modern 
 ## 🔋 Features
 
 - Browse trending, popular, and categorized movies
+- Search and filter content easily
 - View detailed movie pages with trailers and metadata
 - Stream movies using `.m3u8` sources
 - Continue Watching – Save and resume movie playback progress per user
@@ -145,8 +140,7 @@ Open **http://localhost:5173** in your browser.
 
 ## 🚀 Future Improvements
 
-- Watch history and recommendations
-- Advanced search and filtering
+- Watch party
 - Multi-language support
 - PWA support
 
