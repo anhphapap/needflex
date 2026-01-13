@@ -22,33 +22,13 @@
 
 ---
 
-## 📋 Table of Contents
-
-1. ✨ Introduction
-2. ⚙️ Tech Stack
-3. 🔋 Features
-4. 🤸 Quick Start
-5. 🌐 API Data Sources
-6. 🧠 Architecture Overview
-7. 🚀 Future Improvements
-
----
-
-## ✨ Introduction
-
-**Needflex** is a Netflix-inspired movie streaming web application that allows users to explore, watch, and manage movies directly from the browser.
-
-The project was built as a **frontend portfolio project** to demonstrate modern React architecture, performance optimization, and real-world user features without a custom backend.
-
----
-
-## 🚀 Demo
+## Demo
 
 **Needflex** is deployed and accessible at: **https://needflex.site**
 
 ---
 
-## ⚙️ Tech Stack
+## Tech Stack
 
 - **React** – Component-based UI development
 - **Vite** – Fast build tool and development server
@@ -58,7 +38,7 @@ The project was built as a **frontend portfolio project** to demonstrate modern 
 
 ---
 
-## 🔋 Features
+## Features
 
 - Browse trending, popular, and categorized movies
 - Search and filter content easily
@@ -71,7 +51,7 @@ The project was built as a **frontend portfolio project** to demonstrate modern 
 
 ---
 
-## 🤸 Quick Start
+## Quick Start
 
 ### Prerequisites
 
@@ -117,7 +97,7 @@ Open **http://localhost:5173** in your browser.
 
 ---
 
-## 🌐 API Data Sources
+## API Data Sources
 
 - **Ophim API** – Movie lists, metadata, and streaming sources
 
@@ -128,24 +108,6 @@ Open **http://localhost:5173** in your browser.
 
 ---
 
-## 🧠 Architecture Overview
-
-- React Components for UI rendering
-- Context API for global state management
-- Firebase Firestore for user data (watch progress, favorites)
-- External APIs (Ophim, TMDB) for movie content
-- Frontend-only architecture without a custom backend
-
----
-
-## 🚀 Future Improvements
-
-- Watch party
-- Multi-language support
-- PWA support
-
----
-
-## 📌 License
+## License
 
 This project is created for learning and personal portfolio purposes.
