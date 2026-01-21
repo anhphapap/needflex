@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import Hls from "hls.js";
 import {
   Play,
@@ -15,16 +15,10 @@ import {
   RotateCcw,
   Gauge,
   ListVideo,
-  Zap,
-  Download,
-  Share2,
-  MoreVertical,
-  HelpCircle,
   X,
   PictureInPicture,
   SlidersHorizontal,
   Sun,
-  Clock,
   ArrowLeft,
   ChevronLeft,
 } from "lucide-react";
@@ -77,10 +71,10 @@ const VideoPlayer = ({
   const [hasPlayedOnce, setHasPlayedOnce] = useState(false);
   const [playbackRate, setPlaybackRate] = useState(1);
   const [centerOverlay, setCenterOverlay] = useState(null);
-  const [seekForwardAmount, setSeekForwardAmount] = useState(0); // Số giây seek forward
-  const [seekBackwardAmount, setSeekBackwardAmount] = useState(0); // Số giây seek backward
+  const [seekForwardAmount, setSeekForwardAmount] = useState(0);
+  const [seekBackwardAmount, setSeekBackwardAmount] = useState(0);
   const [isSeekAnimating, setIsSeekAnimating] = useState(false);
-  const [seekAnimationKey, setSeekAnimationKey] = useState(0); // Key để trigger animation mới
+  const [seekAnimationKey, setSeekAnimationKey] = useState(0);
   const seekTimeoutRef = useRef(null);
   const [showOverlay, setShowOverlay] = useState(false);
   const [buffered, setBuffered] = useState(0);
@@ -91,7 +85,7 @@ const VideoPlayer = ({
   const [showShortcuts, setShowShortcuts] = useState(false);
   const [pipSupported, setPipSupported] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const [brightness, setBrightness] = useState(100); // 0-100%
+  const [brightness, setBrightness] = useState(100);
   const [showSwipeControl, setShowSwipeControl] = useState(null);
   const [showEpisodes, setShowEpisodes] = useState(false);
   const [swipeValue, setSwipeValue] = useState(0);

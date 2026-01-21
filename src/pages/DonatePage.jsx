@@ -1,12 +1,13 @@
-import React, { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState } from "react";
 import SEO from "../components/SEO";
+import { toast } from "react-toastify";
 
 const listAmount = [10000, 20000, 50000, 100000, 200000, 500000];
 
 function DonatePage() {
   const [createdQR, setCreatedQR] = useState(false);
   const [imgQR, setImgQR] = useState("");
+  const [loading, setLoading] = useState(false);
   const seoData = {
     titleHead: "Ủng Hộ - Góp phần duy trì trang xem phim miễn phí",
     descriptionHead:
@@ -25,12 +26,16 @@ function DonatePage() {
   };
 
   const handleCreateQR = async () => {
+    setLoading(true);
     const amount = document.getElementById("amount").value;
     if (amount != 0) {
       const img = (await import.meta.env.VITE_API_DONATE) + "&amount=" + amount;
       setImgQR(img);
       setCreatedQR(true);
+    } else {
+      toast.error("Vui lòng chọn số tiền");
     }
+    setLoading(false);
   };
 
   const handleBack = () => {
@@ -43,13 +48,25 @@ function DonatePage() {
       <SEO seoData={seoData} />
       <h1 className="text-2xl sm:text-4xl font-bold">Donate</h1>
       <p>
-        Để ủng hộ website & sử dụng tính năng VIP mode cho phim, hãy donate cho
-        trang web
+        Nếu bạn thấy dự án hữu ích và muốn ủng hộ chi phí duy trì, hãy donate
+        cho website.
       </p>
       {(createdQR && (
         <>
+          {loading && (
+            <div className="w-full h-full flex items-center justify-center">
+              <div className="w-[500px] aspect-[0.75] bg-gray-600 animate-pulse"></div>
+            </div>
+          )}
+
           <p>Quét mã QR dưới đây trên app ngân hàng của bạn để chuyển tiền</p>
-          <img src={imgQR} className="w-[500px]"></img>
+          <img
+            src={imgQR}
+            className="w-[500px]"
+            loading="eager"
+            alt="QR Code"
+          ></img>
+
           <button
             className="bg-black border-[1px] px-2 py-[1px] hover:bg-black/10"
             onClick={handleBack}
@@ -66,7 +83,11 @@ function DonatePage() {
           >
             <option value={0}>Chọn số tiền</option>
             {listAmount.map((amount) => {
-              return <option value={amount}>{amount.toLocaleString()}đ</option>;
+              return (
+                <option key={amount} value={amount}>
+                  {amount.toLocaleString()}đ
+                </option>
+              );
             })}
           </select>
           <button

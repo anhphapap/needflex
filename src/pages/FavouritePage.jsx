@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import { UserAuth } from "../context/AuthContext";
 import { useMovieModal } from "../context/MovieModalContext";
@@ -17,7 +17,7 @@ function FavouritePage() {
   const { topSet } = useTop();
   const { user } = UserAuth();
   const { onEnter, onLeave } = useHoverPreview();
-  const { ref, inView } = useInView({ threshold: 0.2 }); // 👀 trigger khi gần cuối
+  const { ref, inView } = useInView({ threshold: 0.2 });
   const seoData = {
     titleHead: "Danh sách phim yêu thích",
     descriptionHead:
@@ -35,12 +35,10 @@ function FavouritePage() {
     },
   };
 
-  // 🔹 Load danh sách lần đầu
   useEffect(() => {
     if (user) loadFavoritesPage();
   }, [user]);
 
-  // 🔹 Khi cuộn gần cuối → tự load thêm
   useEffect(() => {
     if (inView && hasMore && !loadingPage) {
       loadFavoritesPage();
@@ -91,7 +89,6 @@ function FavouritePage() {
             onMouseLeave={onLeave}
             onClick={() => openModal(item.slug, item.tmdb?.id, item.tmdb?.type)}
           >
-            {/* Thumbnail chính */}
             <div className="hidden md:block relative w-full aspect-video rounded-[.2vw] overflow-hidden">
               <LazyImage
                 src={item.poster_url}
@@ -110,7 +107,6 @@ function FavouritePage() {
               )}
             </div>
 
-            {/* Mobile thumbnail */}
             <div className="block md:hidden relative overflow-hidden rounded-[.4vw]">
               <LazyImage
                 src={item.thumb_url}
@@ -129,7 +125,6 @@ function FavouritePage() {
               )}
             </div>
 
-            {/* Top 10 badge */}
             {topSet?.has(item.slug) && (
               <div className="absolute top-0 right-[2px]">
                 <img
@@ -166,7 +161,6 @@ function FavouritePage() {
           </div>
         ))}
 
-        {/* Skeleton loading */}
         {loadingPage && hasMore && (
           <>
             {[...Array(6)].map((_, index) => (
@@ -181,7 +175,6 @@ function FavouritePage() {
         )}
       </div>
 
-      {/* 👇 Vị trí quan sát để trigger load thêm */}
       {hasMore && favoritesPage.length > 0 && (
         <div ref={ref} className="h-10 mt-10" />
       )}
