@@ -251,7 +251,7 @@ const FullWatchPage = () => {
     : null;
 
   return (
-    <div className="flex w-full h-full min-h-screen min-w-screen">
+    <div className="flex w-full h-full min-h-screen min-w-screen overflow-hidden">
       {watchPageSEO && (
         <SEO seoData={watchPageSEO} baseUrl={window.location.origin} />
       )}

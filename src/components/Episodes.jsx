@@ -58,7 +58,7 @@ const Episodes = ({
   };
   return (
     <div
-      className={`lg:absolute fixed lg:-bottom-[126px] bottom-0 right-0 bg-[#262626] backdrop-blur lg:h-[500px] h-screen lg:w-[600px] w-full text-white rounded-sm text-sm
+      className={`lg:absolute fixed lg:-bottom-[110px] bottom-0 right-0 bg-[#262626] backdrop-blur lg:h-[500px] h-screen lg:w-[600px] w-full text-white rounded-sm text-sm
                   lg:opacity-0 lg:group-hover/episodes:opacity-100 lg:group-hover/episodes:visible 
                    ${show ? "visible opacity-100" : "invisible opacity-0"}
                   lg:transition-all lg:duration-200 z-[9999] lg:-translate-y-1/2`}
@@ -159,13 +159,14 @@ const Episodes = ({
                             }}
                           >
                             <button
-                              className="group relative bg-white/10 backdrop-blur-md border-4 border-white/80 rounded-full p-3 sm:p-4 transition-all duration-300 hover:scale-110 hover:bg-white/20 hover:border-white shadow-sm active:scale-95 hover:shadow-white/50"
+                              className="group relative border-[1px] border-white/80 rounded-full p-3 sm:p-4 bg-black/50 backdrop-blur-md transition-all duration-300 hover:scale-110 hover:border-white shadow-2xl active:scale-95 hover:shadow-white/50"
                               aria-label="Phát video"
                             >
                               <Play
                                 size={24}
                                 className="text-white fill-white drop-shadow-2xl"
                                 strokeWidth={2}
+                                fill="white"
                               />
                               <div className="absolute inset-0 rounded-full bg-white/20 animate-pulse"></div>
                             </button>

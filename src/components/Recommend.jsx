@@ -113,13 +113,14 @@ export default function Recommend({
                   </span>
                   <div className="absolute bottom-0 right-0 w-full h-full flex items-center justify-center rounded-sm cursor-pointer opacity-0 group-hover/nextEpisode:opacity-100 transition-all ease-linear duration-100 delay-100">
                     <button
-                      className="group relative bg-white/10 backdrop-blur-md border-4 border-white/80 rounded-full p-2 sm:p-3 transition-all duration-300 hover:scale-110 hover:bg-white/20 hover:border-white shadow-2xl active:scale-95 hover:shadow-white/50"
+                      className="group relative border-[1px] border-white/80 rounded-full p-1 sm:p-2 bg-black/50 "
                       aria-label="Phát video"
                     >
                       <Play
-                        size={24}
+                        size={36}
                         className="text-white fill-white drop-shadow-2xl"
                         strokeWidth={2}
+                        fill="white"
                       />
                       <div className="absolute inset-0 rounded-full bg-white/20 animate-pulse"></div>
                     </button>

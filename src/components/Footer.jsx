@@ -1,4 +1,4 @@
-import { Facebook, Github, Linkedin, Instagram } from "lucide-react";
+import { Facebook, Github, Linkedin, Instagram, Mail } from "lucide-react";
 const Footer = () => {
   return (
     <div className="mt-16 flex flex-col lg:items-start items-center justify-center text-center text-[#808080] text-xs lg:text-sm gap-2 pb-4 mx-[3%] lg:mx-auto lg:w-[80%] xl:w-[60%] font-thin">
@@ -19,6 +19,14 @@ const Footer = () => {
         >
           <Linkedin size={20} />
         </a>
+        <a
+          href="mailto:anhphapap0@gmail.com"
+          className="bg-white/5 rounded-full p-2"
+          aria-label="Send email"
+        >
+          <Mail size={20} />
+        </a>
+
         <a
           href="https://www.facebook.com/pap.error"
           target="_blank"

@@ -15,7 +15,7 @@ import { useListModal } from "../context/ListModalContext";
 import { useWatching } from "../context/WatchingContext";
 import { UserAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { ChevronLeft, ChevronRight, CircleX, Info, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, CircleX, Info, X, Play } from "lucide-react";
 import logo_n from "../assets/images/N_logo.png";
 export default function Carousel({
   nameList,
@@ -789,13 +789,10 @@ export default function Carousel({
                       quality={65}
                     />
                     <div className="absolute bottom-0 left-0 w-full h-full flex items-center justify-center from-black/30 to-transparent bg-gradient-to-br">
-                      <div className="h-12 w-12 flex items-center justify-center bg-black/40 rounded-full border-2 border-white">
-                        <FontAwesomeIcon
-                          icon="fa-solid fa-play"
-                          size="2x"
-                          className="text-white translate-x-[2px]"
-                        />
-                      </div>
+                      <button className="group relative border-[1px] border-white/80 rounded-full p-2 sm:p-3 bg-black/50" aria-label="Phát video">
+                        <Play size={36} className="text-white fill-white drop-shadow-2xl" strokeWidth={2} fill="white" />
+                        <div className="absolute inset-0 rounded-full bg-white/20 animate-pulse"></div>
+                      </button>
                     </div>
                     {new Date().getTime() -
                       new Date(item.modified?.time).getTime() <

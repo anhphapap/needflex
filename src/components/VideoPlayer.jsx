@@ -1392,13 +1392,14 @@ const VideoPlayer = ({
           <div className="flex flex-col items-center gap-6">
             <button
               onClick={handleInitialPlay}
-              className="outline-none group relative bg-white/10 backdrop-blur-md border-4 border-white/80 rounded-full p-4 sm:p-6 transition-all duration-300 hover:scale-110 hover:bg-white/20 hover:border-white shadow-2xl active:scale-95 hover:shadow-white/50"
+              className="outline-none group relative border-[1px] border-white/80 rounded-full p-4 sm:p-6 bg-black/50 backdrop-blur-md transition-all duration-300 hover:scale-110 hover:border-white shadow-2xl active:scale-95 hover:shadow-white/50"
               aria-label="Phát video"
             >
               <Play
                 size={isMobile ? 30 : 60}
                 className="text-white fill-white drop-shadow-2xl"
                 strokeWidth={2}
+                fill="white"
               />
               <div className="absolute inset-0 rounded-full bg-white/20 animate-pulse"></div>
             </button>
@@ -1828,14 +1829,14 @@ const VideoPlayer = ({
             }}
             className={`hover:scale-125 transition-all ease-linear duration-100 p-4 lg:p-6 text-white z-50 pointer-events-auto active:scale-95`}
           >
-            <ArrowLeft size={isMobile ? 30 : 34} />
+            <ArrowLeft size={isMobile ? 30 : 40} />
           </button>
           <span className="lg:hidden block ml-4 text-sm text-white font-semibold truncate">
             {movie.name} -{" "}
             {"Tập " + movie.episodes[svr].server_data[episode].name}
           </span>
           <button className="hover:scale-125 transition-all opacity-0 ease-linear duration-100 p-4 lg:p-6 text-white z-50 pointer-events-auto active:scale-95">
-            <ArrowLeft size={isMobile ? 30 : 34} />
+            <ArrowLeft size={isMobile ? 30 : 40} />
           </button>
         </div>
       )}
@@ -1860,7 +1861,7 @@ const VideoPlayer = ({
             }`}
         >
           {/* Progress bar */}
-          <div className="flex flex-col items-center justify-between w-full gap-3 mb-1 lg:mb-3">
+          <div className="flex flex-col items-center justify-between w-full gap-3 mb-2 lg:mb-3">
             <div className="flex items-center gap-2 justify-between w-full px-1">
               <span className="text-xs lg:text-sm whitespace-nowrap text-white/90 ">
                 {formatTime(progress)}
@@ -1934,7 +1935,7 @@ const VideoPlayer = ({
           </div>
 
           {/* Buttons */}
-          <div className="flex items-center justify-between px-2 lg:px-3 pt-4 lg:pt-0">
+          <div className="flex items-center justify-between px-2 lg:px-3 pt-4 lg:pb-3">
             <div className="hidden lg:flex items-center space-x-1 lg:space-x-4 flex-wrap">
               {/* Play */}
               <button
@@ -1955,20 +1956,14 @@ const VideoPlayer = ({
                 onTouchEnd={(e) => {
                   e.stopPropagation();
                 }}
-                className="hover:scale-125 transition-all ease-linear duration-100 group/tooltip relative p-2 outline-none hidden lg:block"
+                className="group relative hover:scale-110 transition-all ease-linear duration-100 outline-none hidden lg:block"
                 aria-label={playing ? "Dừng" : "Phát"}
               >
                 {playing ? (
-                  <Pause size={isMobile ? 32 : 36} />
+                  <Pause size={isMobile ? 32 : 36} className="text-white fill-white drop-shadow-2xl" strokeWidth={2} fill="white" />
                 ) : (
-                  <Play size={isMobile ? 32 : 36} />
+                  <Play size={isMobile ? 32 : 36} className="text-white fill-white drop-shadow-2xl" strokeWidth={2} fill="white" />
                 )}
-                <Tooltip
-                  content={playing ? "Dừng (Space)" : "Phát (Space)"}
-                  size="sm"
-                  className="bottom-[100%]"
-                  color="dark"
-                />
               </button>
 
               {/* Backward */}
@@ -1984,7 +1979,7 @@ const VideoPlayer = ({
                 className="hover:scale-125 transition-all ease-linear duration-100 group/tooltip relative p-2 outline-none hidden lg:block"
                 aria-label="Quay lại 10 giây"
               >
-                <RotateCcw size={isMobile ? 30 : 34} />
+                <RotateCcw size={isMobile ? 30 : 40} />
                 <Tooltip
                   content={"10s trước (←)"}
                   size="sm"
@@ -2006,7 +2001,7 @@ const VideoPlayer = ({
                 className="hover:scale-125 transition-all ease-linear duration-100 group/tooltip relative p-2 outline-none hidden lg:block"
                 aria-label="Tiến 10 giây"
               >
-                <RotateCw size={isMobile ? 30 : 34} />
+                <RotateCw size={isMobile ? 30 : 40} />
                 <Tooltip
                   content={"10s sau (→)"}
                   size="sm"
@@ -2030,16 +2025,16 @@ const VideoPlayer = ({
                     aria-label={muted ? "Bật tiếng" : "Tắt tiếng"}
                   >
                     {muted ? (
-                      <VolumeX size={34} />
+                      <VolumeX size={40} />
                     ) : volume < 0.3 ? (
-                      <Volume size={34} />
+                      <Volume size={40} />
                     ) : volume < 0.7 ? (
-                      <Volume1 size={34} />
+                      <Volume1 size={40} />
                     ) : (
-                      <Volume2 size={34} />
+                      <Volume2 size={40} />
                     )}
                   </button>
-                  <div className="cursor-pointer -rotate-90 absolute top-[-70px] left-1/2 z-10 -translate-x-1/2 bg-black/80 backdrop-blur flex justify-center items-center p-2 rounded-md group-hover:visible group-hover:opacity-100 opacity-0 invisible transition-all duration-200">
+                  <div className="cursor-pointer -rotate-90 absolute top-[-70px] left-1/2 z-10 -translate-x-1/2 bg-[#262626] backdrop-blur flex justify-center items-center p-2 rounded-md group-hover:visible group-hover:opacity-100 opacity-0 invisible transition-all duration-200">
                     <input
                       type="range"
                       min={0}
@@ -2048,7 +2043,7 @@ const VideoPlayer = ({
                       value={volume}
                       onChange={handleVolume}
                       className="w-24 cursor-pointer"
-                      style={{ accentColor: "red", backgroundColor: "white" }}
+                      style={{ accentColor: "red", backgroundColor: "gray" }}
                       aria-label="Âm lượng"
                     />
                   </div>
@@ -2087,7 +2082,7 @@ const VideoPlayer = ({
                       }}
                       aria-label="Xem tập tiếp theo"
                     >
-                      <SkipForward size={isMobile ? 30 : 34} />
+                      <SkipForward size={isMobile ? 30 : 40} />
                       <span className="lg:hidden">Tập tiếp theo</span>
                     </button>
                     <div
@@ -2106,7 +2101,7 @@ const VideoPlayer = ({
                             ].name}
                         </span>
                       </div>
-                      <div className="flex flex-col h-full bg-black">
+                      <div className="flex flex-col h-full bg-[#131313]">
                         <div className="group/nextEpisode relative h-36 aspect-video flex items-center justify-center p-3 cursor-pointer">
                           <LazyImage
                             src={movie.poster_url}
@@ -2132,13 +2127,14 @@ const VideoPlayer = ({
                                   );
                                 }
                               }}
-                              className="outline-none group relative bg-white/10 backdrop-blur-md border-4 border-white/80 rounded-full p-2 sm:p-3 transition-all duration-300 hover:scale-110 hover:bg-white/20 hover:border-white shadow-2xl active:scale-95 hover:shadow-white/50"
+                              className="outline-none group relative border-[1px] border-white/80 rounded-full p-2 sm:p-3 bg-black/50 backdrop-blur-md transition-all duration-300 hover:scale-110 hover:border-white shadow-2xl active:scale-95 hover:shadow-white/50"
                               aria-label="Phát video"
                             >
                               <Play
                                 size={24}
                                 className="text-white fill-white drop-shadow-2xl"
                                 strokeWidth={2}
+                                fill="white"
                               />
                               <div className="absolute inset-0 rounded-full bg-white/20 animate-pulse"></div>
                             </button>
@@ -2174,7 +2170,7 @@ const VideoPlayer = ({
                       }`}
                       aria-label="Danh sách tập"
                     >
-                      <ListVideo size={isMobile ? 30 : 34} />
+                      <ListVideo size={isMobile ? 30 : 40} />
                       <span className="lg:hidden">Danh sách tập</span>
                     </button>
                     <Episodes
@@ -2216,11 +2212,11 @@ const VideoPlayer = ({
                     className="hover:scale-125 transition-all ease-linear duration-100 p-2 group/tooltip relative outline-none flex items-center space-x-2"
                     aria-label="Tốc độ phát"
                   >
-                    <Gauge size={isMobile ? 30 : 34} />
+                    <Gauge size={isMobile ? 30 : 40} />
                     <span className="lg:hidden">Tốc độ ({playbackRate}x)</span>
                   </button>
                   <div
-                    className={`absolute bottom-12 right-1/2 bg-black/90 backdrop-blur text-white rounded-md p-1 text-xs lg:text-sm
+                    className={`absolute bottom-14 right-1/2 bg-black/90 backdrop-blur text-white rounded-md p-1 text-xs lg:text-sm
                   transition-all duration-200 translate-x-1/2 border border-white/10 ${
                     showSpeedMenu
                       ? "opacity-100 visible"
@@ -2263,10 +2259,10 @@ const VideoPlayer = ({
                     className="hover:scale-125 transition-all ease-linear duration-100 p-2 group/tooltip relative outline-none"
                     aria-label="Chất lượng"
                   >
-                    <SlidersHorizontal size={34} />
+                    <SlidersHorizontal size={40} />
                   </button>
                   <div
-                    className={`absolute bottom-12 right-1/2 bg-black/90 backdrop-blur text-white rounded-md p-1 text-sm
+                    className={`absolute bottom-14 right-1/2 bg-black/90 backdrop-blur text-white rounded-md p-1 text-sm
                   transition-all duration-200 translate-x-1/2 border border-white/10 min-w-max ${
                     showQualityMenuState
                       ? "opacity-100 visible"
@@ -2297,7 +2293,7 @@ const VideoPlayer = ({
               </div>
 
               {/* Picture in Picture */}
-              {pipSupported && (
+              {/* {pipSupported && (
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
@@ -2309,7 +2305,7 @@ const VideoPlayer = ({
                   className="hover:scale-125 transition-all ease-linear duration-100 group/tooltip relative p-2 hidden lg:block"
                   aria-label="Picture in Picture"
                 >
-                  <PictureInPicture size={34} />
+                  <PictureInPicture size={40} />
                   <Tooltip
                     content={"PiP (P)"}
                     size="sm"
@@ -2317,7 +2313,7 @@ const VideoPlayer = ({
                     color="dark"
                   />
                 </button>
-              )}
+              )} */}
 
               {/* Fullscreen */}
               <button
@@ -2332,9 +2328,9 @@ const VideoPlayer = ({
                 aria-label={fullscreen ? "Thu nhỏ" : "Phóng to"}
               >
                 {fullscreen ? (
-                  <Minimize size={isMobile ? 30 : 34} />
+                  <Minimize size={isMobile ? 30 : 40} />
                 ) : (
-                  <Maximize size={isMobile ? 30 : 34} />
+                  <Maximize size={isMobile ? 30 : 40} />
                 )}
                 <Tooltip
                   content={fullscreen ? "Thu nhỏ (F)" : "Phóng to (F)"}
