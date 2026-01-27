@@ -432,3 +432,7 @@ export const getYoutubeId = (url) => {
   const isValid = match && match[1].length === 11;
   return isValid ? match[1] : null;
 };
+
+export const randomColor = () => {
+  return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+};

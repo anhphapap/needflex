@@ -687,7 +687,7 @@ export default function Carousel({
             !loadingPage &&
             endIndex >= watchingPage.length - swiper.params.slidesPerView * 1.5
           ) {
-            console.log("Triggering load more...");
+
             loadWatchingPage(8);
           }
         }}

@@ -52,9 +52,8 @@ export default function Recommend({
       try {
         if (!hasMore) return;
         setLoading(true);
-        const api = `${
-          import.meta.env.VITE_API_LIST
-        }${type}?sort_field=${sort_field}&category=${category}&country=${country}&page=${page}&limit=8`;
+        const api = `${import.meta.env.VITE_API_LIST
+          }${type}?sort_field=${sort_field}&category=${category}&country=${country}&page=${page}&limit=8`;
         const res = await axios.get(api);
         const items = res.data.data.items || [];
 
@@ -144,9 +143,8 @@ export default function Recommend({
                       movie.tmdb?.vote_count > 0 && (
                         <a
                           className="flex items-center space-x-1 text-xs border-[1px] border-[#01b4e4] rounded leading-[14px] px-1 py-[2px] bg-[#01b4e4]/10 hover:bg-[#01b4e4]/20 transition-all ease-linear"
-                          href={`https://www.themoviedb.org/${
-                            movie.type == "single" ? "movie" : "tv"
-                          }/${movie.tmdb.id}`}
+                          href={`https://www.themoviedb.org/${movie.type == "single" ? "movie" : "tv"
+                            }/${movie.tmdb.id}`}
                           target="_blank"
                           onClick={(e) => e.stopPropagation()}
                         >
@@ -163,25 +161,22 @@ export default function Recommend({
                     <span className="lowercase">{movie.year}</span>
                   </div>
                   <div
-                    className={`relative group/tooltip aspect-square text-white border-2 cursor-pointer bg-black/10 rounded-full h-[40px] w-[40px] flex items-center justify-center hover:border-white ${
-                      isFavourite(movie.slug)
-                        ? "border-red-500"
-                        : "border-white/40"
-                    }`}
+                    className={`relative group/tooltip aspect-square text-white border-2 cursor-pointer bg-black/10 rounded-full h-[40px] w-[40px] flex items-center justify-center hover:border-white ${isFavourite(movie.slug)
+                      ? "border-red-500"
+                      : "border-white/40"
+                      }`}
                     onClick={(e) => handleToggleFavorite(e, movie)}
                   >
                     <FontAwesomeIcon
                       icon={
                         loadingFav
                           ? "fa-solid fa-spinner"
-                          : `fa-${
-                              isFavourite(movie.slug) ? "solid" : "regular"
-                            } fa-heart`
+                          : `fa-${isFavourite(movie.slug) ? "solid" : "regular"
+                          } fa-heart`
                       }
                       size="sm"
-                      className={`${
-                        isFavourite(movie.slug) ? "text-red-500" : "text-white"
-                      } ${loadingFav ? "animate-spin" : ""}`}
+                      className={`${isFavourite(movie.slug) ? "text-red-500" : "text-white"
+                        } ${loadingFav ? "animate-spin" : ""}`}
                     />
                     <Tooltip
                       content={

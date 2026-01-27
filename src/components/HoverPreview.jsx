@@ -113,8 +113,8 @@ export default function HoverPreview() {
             index === firstVisible
               ? rect.left
               : index === lastVisible
-              ? rect.left - rect.width / 2
-              : rect.left - rect.width / 4,
+                ? rect.left - rect.width / 2
+                : rect.left - rect.width / 4,
           width: rect.width,
         }}
         onMouseEnter={() => onEnter(hovered)}
@@ -174,28 +174,28 @@ export default function HoverPreview() {
               )}
               {new Date().getTime() - new Date(item.modified?.time).getTime() <
                 1000 * 60 * 60 * 24 * 3 && (
-                <>
-                  {item.episode_current.toLowerCase().includes("hoàn tất") ||
-                  item.episode_current.toLowerCase().includes("full") ? (
-                    <span className="text-nowrap absolute bottom-0 left-1/2 -translate-x-1/2 text-white w-auto bg-[#e50914] py-[2px] px-2 rounded-t text-sm font-semibold text-center shadow-black/80 shadow">
-                      Mới thêm
-                    </span>
-                  ) : item.episode_current.toLowerCase().includes("trailer") ? (
-                    <span className="text-nowrap absolute bottom-0 left-1/2 -translate-x-1/2 text-black w-auto bg-white py-[2px] px-2 rounded-t text-sm font-semibold text-center shadow-black/80 shadow">
-                      Sắp ra mắt
-                    </span>
-                  ) : (
-                    <div className="text-nowrap absolute bottom-0 left-1/2 -translate-x-1/2 flex rounded-t overflow-hidden w-auto">
-                      <span className="text-nowrap text-white bg-[#e50914] py-[2px] px-2 text-sm font-semibold text-center shadow-black/80 shadow">
-                        Tập mới
+                  <>
+                    {item.episode_current.toLowerCase().includes("hoàn tất") ||
+                      item.episode_current.toLowerCase().includes("full") ? (
+                      <span className="text-nowrap absolute bottom-0 left-1/2 -translate-x-1/2 text-white w-auto bg-[#e50914] py-[2px] px-2 rounded-t text-sm font-semibold text-center shadow-black/80 shadow">
+                        Mới thêm
                       </span>
-                      <span className="text-nowrap text-black bg-white py-[2px] px-2 text-sm font-semibold text-center shadow-black/80 shadow">
-                        Xem ngay
+                    ) : item.episode_current.toLowerCase().includes("trailer") ? (
+                      <span className="text-nowrap absolute bottom-0 left-1/2 -translate-x-1/2 text-black w-auto bg-white py-[2px] px-2 rounded-t text-sm font-semibold text-center shadow-black/80 shadow">
+                        Sắp ra mắt
                       </span>
-                    </div>
-                  )}
-                </>
-              )}
+                    ) : (
+                      <div className="text-nowrap absolute bottom-0 left-1/2 -translate-x-1/2 flex rounded-t overflow-hidden w-auto">
+                        <span className="text-nowrap text-white bg-[#e50914] py-[2px] px-2 text-sm font-semibold text-center shadow-black/80 shadow">
+                          Tập mới
+                        </span>
+                        <span className="text-nowrap text-black bg-white py-[2px] px-2 text-sm font-semibold text-center shadow-black/80 shadow">
+                          Xem ngay
+                        </span>
+                      </div>
+                    )}
+                  </>
+                )}
             </div>
             {/* <div className="bg-gradient-to-t from-[#141414] to-transparent absolute w-full h-[40%] -bottom-[2px] left-0 z-10"></div> */}
           </div>
@@ -203,11 +203,10 @@ export default function HoverPreview() {
             <div className="flex justify-between px-1">
               <div className="flex items-center gap-2">
                 <div
-                  className={`bg-white rounded-full h-[40px] w-[40px] flex items-center justify-center hover:bg-white/80 cursor-pointer ${
-                    item.episode_current.toLowerCase().includes("trailer")
-                      ? "pl-0"
-                      : "pl-[2px]"
-                  }`}
+                  className={`bg-white rounded-full h-[40px] w-[40px] flex items-center justify-center hover:bg-white/80 cursor-pointer ${item.episode_current.toLowerCase().includes("trailer")
+                    ? "pl-0"
+                    : "pl-[2px]"
+                    }`}
                   onClick={(e) =>
                     handlePlayMovie(
                       e,
@@ -216,21 +215,19 @@ export default function HoverPreview() {
                   }
                 >
                   <FontAwesomeIcon
-                    icon={`fa-solid ${
-                      item.episode_current.toLowerCase().includes("trailer") ||
+                    icon={`fa-solid ${item.episode_current.toLowerCase().includes("trailer") ||
                       item.episode_current.toLowerCase().includes("tập 0")
-                        ? "fa-bell"
-                        : "fa-play"
-                    }`}
+                      ? "fa-bell"
+                      : "fa-play"
+                      }`}
                     size="sm"
                   />
                 </div>
                 <div
-                  className={`relative group/tooltip text-white border-2 cursor-pointer  bg-black/10 rounded-full h-[40px] w-[40px] flex items-center justify-center hover:border-white ${
-                    isFavourite
-                      ? "border-red-500"
-                      : "hover:border-white border-white/40"
-                  }`}
+                  className={`relative group/tooltip text-white border-2 cursor-pointer  bg-black/10 rounded-full h-[40px] w-[40px] flex items-center justify-center hover:border-white ${isFavourite
+                    ? "border-red-500"
+                    : "hover:border-white border-white/40"
+                    }`}
                   onClick={(e) => handleToggleFavorite(e, item)}
                 >
                   <FontAwesomeIcon
@@ -240,9 +237,8 @@ export default function HoverPreview() {
                         : `fa-${isFavourite ? "solid" : "regular"} fa-heart`
                     }
                     size="sm"
-                    className={`${
-                      isFavourite ? "text-red-500" : "text-white"
-                    } ${loadingFav ? "animate-spin" : ""}`}
+                    className={`${isFavourite ? "text-red-500" : "text-white"
+                      } ${loadingFav ? "animate-spin" : ""}`}
                   />
                   <Tooltip
                     content={isFavourite ? "Bỏ thích" : "Yêu thích"}
@@ -280,9 +276,8 @@ export default function HoverPreview() {
             </div>
 
             <h3
-              className={`font-bold text-base text-white ${
-                isWatching || watchingMovie !== null ? "" : "truncate"
-              }`}
+              className={`font-bold text-base text-white ${isWatching || watchingMovie !== null ? "" : "truncate"
+                }`}
             >
               {!(isWatching || watchingMovie !== null)
                 ? item.name
@@ -303,17 +298,16 @@ export default function HoverPreview() {
                 </div>
                 <div className="text-white/80 text-sm flex items-center gap-2 flex-wrap">
                   {item.category.slice(0, 3).map((cat, idx) => (
-                    <>
+                    <span key={cat.name + "category" + item._id} className="flex items-center gap-1">
                       {idx !== 0 && (
                         <FontAwesomeIcon
                           icon="fa-solid fa-circle"
                           size="2xs"
                           className="opacity-50 scale-50"
-                          key={cat.name + "circle"}
                         />
                       )}
-                      <span key={cat.name + "name"}>{cat.name}</span>
-                    </>
+                      <span>{cat.name}</span>
+                    </span>
                   ))}
                 </div>
               </>

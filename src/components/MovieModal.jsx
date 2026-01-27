@@ -117,7 +117,7 @@ export default function MovieModal({
         try {
           if (!isVisible) {
             // Tab không visible - dừng video nếu đang phát
-            console.log("Modal: Tab không visible, dừng video");
+
             if (player.getPlayerState() === window.YT.PlayerState.PLAYING) {
               player.pauseVideo();
               setIsVideoPaused(true);
@@ -125,9 +125,9 @@ export default function MovieModal({
             }
           } else {
             // Tab visible - tiếp tục phát video nếu đang pause
-            console.log("Modal: Tab visible, kiểm tra tiếp tục phát video");
+
             if (player.getPlayerState() === window.YT.PlayerState.PAUSED) {
-              console.log("Modal: Tiếp tục phát video sau khi quay lại tab");
+
               player.playVideo();
               setIsVideoPaused(false);
               setFadeOutImage(true);
@@ -150,14 +150,14 @@ export default function MovieModal({
   // Window Focus API - dừng video khi mất focus khỏi cửa sổ trình duyệt
   useEffect(() => {
     const handleWindowFocus = () => {
-      console.log("Modal: Cửa sổ có focus");
+
       setIsPageVisible(true);
 
       if (player && player.getPlayerState) {
         try {
           // Cửa sổ có focus - tiếp tục phát video nếu đang pause
           if (player.getPlayerState() === window.YT.PlayerState.PAUSED) {
-            console.log("Modal: Tiếp tục phát video sau khi cửa sổ có focus");
+
             player.playVideo();
             setIsVideoPaused(false);
             setFadeOutImage(true);
@@ -169,14 +169,14 @@ export default function MovieModal({
     };
 
     const handleWindowBlur = () => {
-      console.log("Modal: Cửa sổ mất focus");
+
       setIsPageVisible(false);
 
       if (player && player.getPlayerState) {
         try {
           // Cửa sổ mất focus - dừng video nếu đang phát
           if (player.getPlayerState() === window.YT.PlayerState.PLAYING) {
-            console.log("Modal: Dừng video do mất focus cửa sổ");
+
             player.pauseVideo();
             setIsVideoPaused(true);
             setFadeOutImage(false);
@@ -287,8 +287,7 @@ export default function MovieModal({
       const [data, image] = await Promise.all([
         axios.get(`${import.meta.env.VITE_API_DETAILS}${slug}`),
         getImages(
-          `https://api.themoviedb.org/3/${tmdb_type}/${tmdb_id}/images?api_key=${
-            import.meta.env.VITE_TMDB_KEY
+          `https://api.themoviedb.org/3/${tmdb_type}/${tmdb_id}/images?api_key=${import.meta.env.VITE_TMDB_KEY
           }`
         ),
       ]);
@@ -372,15 +371,14 @@ export default function MovieModal({
         <div className="flex flex-col w-full lg:rounded-lg bg-[#181818] pb-8 lg:pb-0">
           <div className="aspect-video bg-cover bg-center w-full relative lg:rounded-t-lg lg:overflow-hidden">
             <div
-              className={`absolute top-0 left-0 w-full h-full object-cover z-10 transition-opacity duration-1000 ease-in-out ${
-                fadeOutImage ? "opacity-0" : "opacity-100"
-              }`}
+              className={`absolute top-0 left-0 w-full h-full object-cover z-10 transition-opacity duration-1000 ease-in-out ${fadeOutImage ? "opacity-0" : "opacity-100"
+                }`}
             >
               <LazyImage
                 src={
                   modal?.tmdb_image?.backdrop
                     ? "https://image.tmdb.org/t/p/" +
-                      modal?.tmdb_image?.backdrop
+                    modal?.tmdb_image?.backdrop
                     : modal.item.poster_url
                 }
                 mode="blur"
@@ -392,9 +390,8 @@ export default function MovieModal({
 
             {youtubeId && (
               <div
-                className={`absolute top-0 left-0 w-full h-full transition-opacity duration-700 ease-in-out ${
-                  showTrailer ? "opacity-100" : "opacity-0 pointer-events-none"
-                }`}
+                className={`absolute top-0 left-0 w-full h-full transition-opacity duration-700 ease-in-out ${showTrailer ? "opacity-100" : "opacity-0 pointer-events-none"
+                  }`}
               >
                 <YouTube
                   videoId={youtubeId}
@@ -453,11 +450,10 @@ export default function MovieModal({
             </button>
             <div className="flex flex-row sm:flex-col space-x-2 space-y-2 lg:space-y-3 justify-between absolute left-[5%] right-[5%] bottom-[5%] z-20">
               <div
-                className={`flex flex-col justify-start sm:justify-end space-y-1 sm:space-y-2 lg:space-y-3 w-2/3 sm:px-0 ease-linear duration-[1000ms] ${
-                  fadeOutImage
-                    ? "delay-[3000ms] scale-75 translate-y-[12.5%] -translate-x-[12.5%]"
-                    : "delay-0 scale-100 translate-x-0 translate-y-0"
-                }`}
+                className={`flex flex-col justify-start sm:justify-end space-y-1 sm:space-y-2 lg:space-y-3 w-2/3 sm:px-0 ease-linear duration-[1000ms] ${fadeOutImage
+                  ? "delay-[3000ms] scale-75 translate-y-[12.5%] -translate-x-[12.5%]"
+                  : "delay-0 scale-100 translate-x-0 translate-y-0"
+                  }`}
               >
                 <div className="flex items-center space-x-1 justify-start sm:scale-100 scale-75 -translate-x-[12.5%] sm:translate-x-0 w-full">
                   <img
@@ -469,8 +465,8 @@ export default function MovieModal({
                     {modal.item.type === "series"
                       ? "LOẠT PHIM"
                       : modal.item.type === "hoathinh"
-                      ? "HOẠT HÌNH"
-                      : "PHIM"}
+                        ? "HOẠT HÌNH"
+                        : "PHIM"}
                   </span>
                 </div>
                 <div className={`w-2/3 transition-all `}>
@@ -567,21 +563,20 @@ export default function MovieModal({
                           </button>
                         </div>
                       ))) || (
-                      <button
-                        className="px-4 sm:px-7 lg:px-10 font-semibold text-black text-nowrap flex flex-nowrap items-center space-x-2"
-                        onClick={() => {
-                          toast.warning("Tính năng đang được phát triển.");
-                        }}
-                      >
-                        <FontAwesomeIcon icon="fa-solid fa-bell" />
-                        <span>Nhắc tôi</span>
-                      </button>
-                    )}
+                        <button
+                          className="px-4 sm:px-7 lg:px-10 font-semibold text-black text-nowrap flex flex-nowrap items-center space-x-2"
+                          onClick={() => {
+                            toast.warning("Tính năng đang được phát triển.");
+                          }}
+                        >
+                          <FontAwesomeIcon icon="fa-solid fa-bell" />
+                          <span>Nhắc tôi</span>
+                        </button>
+                      )}
                   </div>
                   <button
-                    className={`group/tooltip relative p-1 sm:p-2 lg:p-3 h-full aspect-square rounded-full bg-transparent border-2 flex items-center justify-center ${
-                      isFavourite ? "border-red-500" : "border-white/40"
-                    } hover:border-white hover:bg-white/10 transition-all ease-linear`}
+                    className={`group/tooltip relative p-1 sm:p-2 lg:p-3 h-full aspect-square rounded-full bg-transparent border-2 flex items-center justify-center ${isFavourite ? "border-red-500" : "border-white/40"
+                      } hover:border-white hover:bg-white/10 transition-all ease-linear`}
                     onClick={handleSaveMovie}
                   >
                     <Tooltip content={isFavourite ? "Bỏ thích" : "Yêu thích"} />
@@ -591,9 +586,8 @@ export default function MovieModal({
                           ? "fa-solid fa-spinner"
                           : `fa-${isFavourite ? "solid" : "regular"} fa-heart`
                       }
-                      className={`sm:text-lg ${
-                        isFavourite ? "text-red-500" : "text-white"
-                      } ${loadingFav ? "animate-spin" : ""}`}
+                      className={`sm:text-lg ${isFavourite ? "text-red-500" : "text-white"
+                        } ${loadingFav ? "animate-spin" : ""}`}
                     />
                   </button>
                 </div>
@@ -670,23 +664,22 @@ export default function MovieModal({
                           </button>
                         </div>
                       ))) || (
-                      <button
-                        className="font-semibold text-black text-nowrap flex flex-nowrap items-center space-x-2 w-full h-full justify-center"
-                        onClick={() => {
-                          toast.warning("Tính năng đang được phát triển.");
-                        }}
-                      >
-                        <FontAwesomeIcon icon="fa-solid fa-bell" />
-                        <span>Nhắc tôi</span>
-                      </button>
-                    )}
+                        <button
+                          className="font-semibold text-black text-nowrap flex flex-nowrap items-center space-x-2 w-full h-full justify-center"
+                          onClick={() => {
+                            toast.warning("Tính năng đang được phát triển.");
+                          }}
+                        >
+                          <FontAwesomeIcon icon="fa-solid fa-bell" />
+                          <span>Nhắc tôi</span>
+                        </button>
+                      )}
                   </div>
                   <div
-                    className={`h-full relative rounded-md  backdrop-blur-sm w-1/2 lg:w-auto flex items-center justify-center ${
-                      isFavourite
-                        ? "bg-red-500/30 hover:bg-red-500/20"
-                        : "bg-white/30 hover:bg-white/20"
-                    }`}
+                    className={`h-full relative rounded-md  backdrop-blur-sm w-1/2 lg:w-auto flex items-center justify-center ${isFavourite
+                      ? "bg-red-500/30 hover:bg-red-500/20"
+                      : "bg-white/30 hover:bg-white/20"
+                      }`}
                   >
                     <button
                       className="py-2 sm:py-3 sm:px-7 lg:px-10 text-white font-medium flex items-center justify-center space-x-2"
@@ -698,14 +691,12 @@ export default function MovieModal({
                             ? "fa-solid fa-spinner"
                             : `fa-${isFavourite ? "solid" : "regular"} fa-heart`
                         }
-                        className={`sm:text-lg sm:w-5 sm:h-5 h-3 w-3 ${
-                          isFavourite ? "text-red-500" : "text-white"
-                        } ${loadingFav ? "animate-spin" : ""}`}
+                        className={`sm:text-lg sm:w-5 sm:h-5 h-3 w-3 ${isFavourite ? "text-red-500" : "text-white"
+                          } ${loadingFav ? "animate-spin" : ""}`}
                       />
                       <span
-                        className={`text-nowrap ${
-                          isFavourite ? "text-red-500" : "text-white"
-                        }`}
+                        className={`text-nowrap ${isFavourite ? "text-red-500" : "text-white"
+                          }`}
                       >
                         {isFavourite ? "Đã thích" : "Yêu thích"}
                       </span>
@@ -753,9 +744,8 @@ export default function MovieModal({
                     {modal.item.tmdb?.vote_count > 0 && (
                       <a
                         className="flex items-center space-x-2 border-[1px] border-[#01b4e4] rounded-md py-1 px-2 bg-[#01b4e4]/10 hover:bg-[#01b4e4]/20 transition-all ease-linear text-xs lg:text-sm"
-                        href={`https://www.themoviedb.org/${
-                          modal.item.type == "single" ? "movie" : "tv"
-                        }/${modal.item.tmdb.id}`}
+                        href={`https://www.themoviedb.org/${modal.item.type == "single" ? "movie" : "tv"
+                          }/${modal.item.tmdb.id}`}
                         target="_blank"
                       >
                         <span className="text-[#01b4e4] font-medium">TMDB</span>
@@ -775,17 +765,17 @@ export default function MovieModal({
                       <span className="text-white text-base sm:text-xl font-bold">
                         #
                         {modal.item.type === "single" ||
-                        modal.item.episode_total === "1"
+                          modal.item.episode_total === "1"
                           ? [...topSet].findIndex(
-                              (slug) => slug === modal.item.slug
-                            ) +
-                            1 +
-                            " Phim lẻ "
+                            (slug) => slug === modal.item.slug
+                          ) +
+                          1 +
+                          " Phim lẻ "
                           : [...topSet].findIndex(
-                              (slug) => slug === modal.item.slug
-                            ) -
-                            9 +
-                            " Phim bộ "}
+                            (slug) => slug === modal.item.slug
+                          ) -
+                          9 +
+                          " Phim bộ "}
                         hôm nay
                       </span>
                     </div>
@@ -801,9 +791,8 @@ export default function MovieModal({
                     dangerouslySetInnerHTML={{
                       __html: modal.item.content,
                     }}
-                    className={`text-white text-pretty text-sm lg:text-base transition-all duration-300 ${
-                      isContentExpanded ? "" : "line-clamp-3"
-                    }`}
+                    className={`text-white text-pretty text-sm lg:text-base transition-all duration-300 ${isContentExpanded ? "" : "line-clamp-3"
+                      }`}
                   />
                   {modal.item.content && modal.item.content.length > 200 && (
                     <button
@@ -917,8 +906,8 @@ export default function MovieModal({
             </div>
             <div>
               {modal.item.type != "single" &&
-                modal.item.episodes[server].server_data[server].link_embed !=
-                  "" && (
+                modal.item.episodes[server].server_data[0].link_embed !=
+                "" && (
                   <div className="flex flex-col space-y-5 pt-6">
                     <h2 className="text-xl lg:text-2xl font-bold">
                       Danh sách tập
@@ -931,11 +920,10 @@ export default function MovieModal({
                       {modal.item.episodes.map((item, index) => (
                         <div
                           key={index}
-                          className={`${
-                            server == index
-                              ? " text-black bg-white border-[1px] border-white"
-                              : "text-white/70 hover:text-white hover:bg-white/10 border-[1px] border-white/70"
-                          } cursor-pointer px-2 py-1 rounded-md transition-all ease-linear flex items-center gap-2 text-xs lg:text-base `}
+                          className={`${server == index
+                            ? " text-black bg-white border-[1px] border-white"
+                            : "text-white/70 hover:text-white hover:bg-white/10 border-[1px] border-white/70"
+                            } cursor-pointer px-2 py-1 rounded-md transition-all ease-linear flex items-center gap-2 text-xs lg:text-base `}
                           onClick={() => setServer(index)}
                         >
                           <Captions size={16} />
@@ -951,11 +939,10 @@ export default function MovieModal({
                           ),
                         }).map((item, index) => (
                           <button
-                            className={`text-xs rounded py-1.5 px-3 ${
-                              episodesRange == index * 100
-                                ? "bg-white text-black border-white"
-                                : "bg-white/[15%] hover:bg-white/10 hover:text-white hover:border-white text-white/70"
-                            } transition-all ease-linear duration-300`}
+                            className={`text-xs rounded py-1.5 px-3 ${episodesRange == index * 100
+                              ? "bg-white text-black border-white"
+                              : "bg-white/[15%] hover:bg-white/10 hover:text-white hover:border-white text-white/70"
+                              } transition-all ease-linear duration-300`}
                             key={index}
                             onClick={() => setEpisodesRange(index * 100)}
                           >
@@ -971,7 +958,7 @@ export default function MovieModal({
                             ]?.name ||
                               modal.item.episodes[server].server_data[
                                 modal.item.episodes[server].server_data.length -
-                                  1
+                                1
                               ].name}
                           </button>
                         ))}

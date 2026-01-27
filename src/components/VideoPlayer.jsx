@@ -105,14 +105,11 @@ const VideoPlayer = ({
       if ("wakeLock" in navigator) {
         // Request a screen wake lock
         wakeLockRef.current = await navigator.wakeLock.request("screen");
-        console.log("Wake Lock activated - màn hình sẽ luôn sáng");
 
         // Listen for wake lock release
         wakeLockRef.current.addEventListener("release", () => {
-          console.log("Wake Lock released");
+          // Wake Lock released
         });
-      } else {
-        console.log("Wake Lock API not supported on this device");
       }
     } catch (err) {
       console.error("Wake Lock request failed:", err);
@@ -124,7 +121,6 @@ const VideoPlayer = ({
       try {
         await wakeLockRef.current.release();
         wakeLockRef.current = null;
-        console.log("Wake Lock released manually");
       } catch (err) {
         console.error("Wake Lock release failed:", err);
       }
@@ -159,7 +155,6 @@ const VideoPlayer = ({
         playing &&
         (fullscreen || isMobile)
       ) {
-        console.log("Tab visible again, re-requesting wake lock");
         await requestWakeLock();
       }
     };
@@ -178,7 +173,6 @@ const VideoPlayer = ({
       // Chỉ dựa vào width để dễ test trên DevTools
       const isMobileDetected = width < 1024;
       setIsMobile(isMobileDetected);
-      console.log("Mobile detection:", { width, isMobile: isMobileDetected });
     };
     checkMobile();
     window.addEventListener("resize", checkMobile);
@@ -189,22 +183,14 @@ const VideoPlayer = ({
   const handleAutoFullscreen = async () => {
     // Check mobile based on current window width (avoid closure issue)
     const isMobileNow = window.innerWidth < 1024;
-    console.log(
-      "handleAutoFullscreen called, isMobile:",
-      isMobileNow,
-      "width:",
-      window.innerWidth
-    );
 
     if (!isMobileNow) {
-      console.log("Not mobile width, skipping auto fullscreen");
       return;
     }
 
     const container = containerRef.current;
     const video = videoRef.current;
     if (!container || !video) {
-      console.log("No container/video ref, skipping auto fullscreen");
       return;
     }
 
@@ -217,10 +203,7 @@ const VideoPlayer = ({
         document.msFullscreenElement
       );
 
-      console.log("Current fullscreen state:", isFullscreen);
-
       if (!isFullscreen) {
-        console.log("Requesting fullscreen...");
 
         // iOS Safari: Try video element fullscreen first (works better)
         if (
@@ -229,11 +212,9 @@ const VideoPlayer = ({
         ) {
           try {
             video.webkitEnterFullscreen();
-            console.log("iOS video fullscreen entered");
             setFullscreen(true);
             return;
           } catch (err) {
-            console.log("iOS video fullscreen failed, trying container:", err);
           }
         }
 
@@ -248,21 +229,18 @@ const VideoPlayer = ({
           await container.msRequestFullscreen();
         }
 
-        console.log("Fullscreen requested successfully");
         setFullscreen(true);
 
         // Lock orientation sau khi fullscreen (iOS cần fullscreen trước)
         if (screen.orientation && screen.orientation.lock) {
           try {
             await screen.orientation.lock("landscape");
-            console.log("Orientation locked to landscape");
           } catch (err) {
-            console.log("Orientation lock failed:", err);
+            // Orientation lock failed
           }
         }
       }
     } catch (err) {
-      console.log("Auto fullscreen failed:", err);
     }
   };
 
@@ -277,14 +255,10 @@ const VideoPlayer = ({
 
     // Nếu có resumeData hoặc shouldAutoPlay → trigger auto fullscreen
     if (resumeData || shouldAutoPlay) {
-      console.log("Triggering auto fullscreen from resumeData/shouldAutoPlay");
-
       const timer = setTimeout(async () => {
         try {
           await handleAutoFullscreen();
-          console.log("Auto fullscreen completed");
         } catch (err) {
-          console.log("Auto fullscreen failed:", err);
         }
       }, 300); // Delay nhỏ để đảm bảo video đã sẵn sàng
 
@@ -351,12 +325,9 @@ const VideoPlayer = ({
           setTimeout(async () => {
             if (video && hlsRef.current === hls) {
               // Auto fullscreen trước khi play trên mobile (PHẢI AWAIT!)
-              console.log("HLS manifest loaded, triggering auto fullscreen");
               try {
                 await handleAutoFullscreen();
-                console.log("Fullscreen completed, now playing video");
               } catch (err) {
-                console.log("Fullscreen on autoplay (HLS) failed:", err);
               }
 
               // Play video sau khi fullscreen
@@ -398,12 +369,9 @@ const VideoPlayer = ({
           setTimeout(async () => {
             if (video) {
               // Auto fullscreen trước khi play trên mobile (Safari - PHẢI AWAIT!)
-              console.log("Safari canplay event, triggering auto fullscreen");
               try {
                 await handleAutoFullscreen();
-                console.log("Fullscreen completed, now playing video");
               } catch (err) {
-                console.log("Fullscreen on autoplay (Safari) failed:", err);
               }
 
               // Play video sau khi fullscreen
@@ -440,7 +408,6 @@ const VideoPlayer = ({
           // Kiểm tra cả video và HLS instance
           video.currentTime = resumeData.currentTime;
           setProgress(resumeData.currentTime);
-          console.log("Resume video at:", resumeData.currentTime);
         }
       }, 800); // Delay để HLS load xong
 
@@ -573,17 +540,9 @@ const VideoPlayer = ({
     const video = videoRef.current;
     if (video) {
       // Auto fullscreen trên mobile TRƯỚC khi play (quan trọng!)
-      console.log(
-        "handleInitialPlay called, fullscreen:",
-        fullscreen,
-        "width:",
-        window.innerWidth
-      );
-      console.log("Triggering auto fullscreen from play button");
       try {
         await handleAutoFullscreen();
       } catch (err) {
-        console.log("Fullscreen on play failed:", err);
       }
 
       video.play();
@@ -788,8 +747,6 @@ const VideoPlayer = ({
       );
 
       if (!isFullscreen) {
-        console.log("Entering fullscreen...");
-
         // iOS Safari: Try video element fullscreen first (works better on mobile)
         if (
           isMobile &&
@@ -798,11 +755,9 @@ const VideoPlayer = ({
         ) {
           try {
             video.webkitEnterFullscreen();
-            console.log("iOS video fullscreen entered");
             setFullscreen(true);
             return;
           } catch (err) {
-            console.log("iOS video fullscreen failed, trying container:", err);
           }
         }
 
@@ -819,29 +774,21 @@ const VideoPlayer = ({
           // IE11
           await container.msRequestFullscreen();
         }
-
-        console.log("Fullscreen entered successfully");
         setFullscreen(true);
 
         // Lock orientation SAU khi vào fullscreen (iOS requirement)
         if (screen.orientation && screen.orientation.lock) {
           try {
             await screen.orientation.lock("landscape");
-            console.log("Orientation locked to landscape");
           } catch (err) {
-            console.log("Orientation lock failed:", err);
           }
         }
       } else {
-        console.log("Exiting fullscreen...");
-
         // Unlock orientation TRƯỚC khi thoát fullscreen
         if (screen.orientation && screen.orientation.unlock) {
           try {
             screen.orientation.unlock();
-            console.log("Orientation unlocked");
           } catch (err) {
-            console.log("Orientation unlock failed:", err);
           }
         }
 
@@ -852,11 +799,9 @@ const VideoPlayer = ({
         ) {
           try {
             video.webkitExitFullscreen();
-            console.log("iOS video fullscreen exited");
             setFullscreen(false);
             return;
           } catch (err) {
-            console.log("iOS exit fullscreen failed:", err);
           }
         }
 
@@ -870,8 +815,6 @@ const VideoPlayer = ({
         } else if (document.msExitFullscreen) {
           await document.msExitFullscreen();
         }
-
-        console.log("Fullscreen exited successfully");
         setFullscreen(false);
       }
     } catch (error) {
@@ -975,7 +918,7 @@ const VideoPlayer = ({
       const timeSinceLastTap = now - lastTapTime.current;
       const distFromLastTap = Math.sqrt(
         Math.pow(tapX - lastTapX.current, 2) +
-          Math.pow(tapY - lastTapY.current, 2)
+        Math.pow(tapY - lastTapY.current, 2)
       );
 
       // Double tap detection (trong 300ms và cùng vị trí)
@@ -1011,13 +954,11 @@ const VideoPlayer = ({
             !fullscreen &&
             window.innerWidth < 1024
           ) {
-            console.log("Single tap detected, triggering fullscreen");
             try {
               await handleAutoFullscreen();
               setShowControls(true);
               return;
             } catch (err) {
-              console.log("Fullscreen from tap failed:", err);
             }
           }
 
@@ -1161,37 +1102,30 @@ const VideoPlayer = ({
       if (!isFullscreen && screen.orientation && screen.orientation.unlock) {
         try {
           screen.orientation.unlock();
-          console.log("Orientation unlocked on fullscreen exit");
         } catch (err) {
-          console.log("Orientation unlock failed:", err);
         }
       }
     };
 
     // iOS Safari specific events
     const handleIOSFullscreenBegin = () => {
-      console.log("iOS fullscreen begin");
       setFullscreen(true);
 
       // Try to lock orientation on iOS
       if (screen.orientation && screen.orientation.lock) {
         screen.orientation.lock("landscape").catch((err) => {
-          console.log("iOS orientation lock failed:", err);
         });
       }
     };
 
     const handleIOSFullscreenEnd = () => {
-      console.log("iOS fullscreen end");
       setFullscreen(false);
 
       // Unlock orientation on iOS
       if (screen.orientation && screen.orientation.unlock) {
         try {
           screen.orientation.unlock();
-          console.log("iOS orientation unlocked");
         } catch (err) {
-          console.log("iOS orientation unlock failed:", err);
         }
       }
     };
@@ -1249,11 +1183,6 @@ const VideoPlayer = ({
   // Auto-hide controls sau khi video play (đặc biệt quan trọng khi chuyển tập)
   useEffect(() => {
     if (videoReady && hasPlayedOnce && playing) {
-      console.log("Video is playing, starting auto-hide timer for controls", {
-        episode,
-        svr,
-        shouldAutoPlay,
-      });
       // Delay trước khi start timer
       const initialDelay = setTimeout(() => {
         // Start timer để ẩn controls
@@ -1366,9 +1295,8 @@ const VideoPlayer = ({
       <video
         ref={videoRef}
         poster={import.meta.env.VITE_API_IMAGE + movie?.poster_url}
-        className={`w-full h-full bg-black transition-all duration-300 ${
-          fullscreen || isMobile ? "object-contain" : "object-cover"
-        }`}
+        className={`w-full h-full bg-black transition-all duration-300 ${fullscreen || isMobile ? "object-contain" : "object-cover"
+          }`}
         style={{ filter: `brightness(${brightness}%)` }}
         onTimeUpdate={handleTimeUpdate}
         onClick={isMobile ? undefined : handleVideoClick}
@@ -1445,17 +1373,15 @@ const VideoPlayer = ({
               <div className="w-full">
                 <div className="h-2 bg-white/20 rounded-full overflow-hidden">
                   <div
-                    className={`h-full rounded-full transition-all duration-150 ${
-                      showSwipeControl.type === "volume"
+                    className={`h-full rounded-full transition-all duration-150 ${showSwipeControl.type === "volume"
                         ? "bg-gradient-to-r from-red-500 to-red-600"
                         : "bg-gradient-to-r from-yellow-400 to-yellow-500"
-                    }`}
+                      }`}
                     style={{
-                      width: `${
-                        showSwipeControl.type === "volume"
+                      width: `${showSwipeControl.type === "volume"
                           ? showSwipeControl.value * 100
                           : ((showSwipeControl.value - 20) / 180) * 100
-                      }%`,
+                        }%`,
                     }}
                   />
                 </div>
@@ -1478,24 +1404,22 @@ const VideoPlayer = ({
       {/* Center overlay */}
       {centerOverlay && (
         <div
-          className={`absolute inset-0 flex items-center pointer-events-none transition-all duration-200 ${
-            centerOverlay === "forward"
+          className={`absolute inset-0 flex items-center pointer-events-none transition-all duration-200 ${centerOverlay === "forward"
               ? "justify-end px-[6%]"
               : centerOverlay === "backward"
-              ? "justify-start px-[6%]"
-              : "justify-center lg:flex hidden"
-          }`}
+                ? "justify-start px-[6%]"
+                : "justify-center lg:flex hidden"
+            }`}
         >
           <div
-            className={`bg-black/40 opacity-80 backdrop-blur-sm rounded-full p-6 lg:p-10 text-white shadow-2xl ${
-              isSeekAnimating
+            className={`bg-black/40 opacity-80 backdrop-blur-sm rounded-full p-6 lg:p-10 text-white shadow-2xl ${isSeekAnimating
                 ? centerOverlay === "forward"
                   ? "animate-slideInRight bg-transparent !backdrop-blur-none !shadow-none"
                   : centerOverlay === "backward"
-                  ? "animate-slideInLeft bg-transparent !backdrop-blur-none !shadow-none"
-                  : "animate-fadeIn"
+                    ? "animate-slideInLeft bg-transparent !backdrop-blur-none !shadow-none"
+                    : "animate-fadeIn"
                 : "animate-fadeOut"
-            }`}
+              }`}
           >
             {centerOverlay === "play" && (
               <Play
@@ -1811,9 +1735,8 @@ const VideoPlayer = ({
 
       {videoReady && hasPlayedOnce && (
         <div
-          className={`absolute top-0 left-0 w-full flex items-center justify-between bg-gradient-to-b from-black/30 to-transparent transition-opacity duration-300 ${
-            showControls || showEpisodes ? "opacity-100" : "opacity-0"
-          }`}
+          className={`absolute top-0 left-0 w-full flex items-center justify-between bg-gradient-to-b from-black/30 to-transparent transition-opacity duration-300 ${showControls || showEpisodes ? "opacity-100" : "opacity-0"
+            }`}
         >
           <button
             onClick={() => {
@@ -1854,10 +1777,9 @@ const VideoPlayer = ({
           }}
           className={`absolute bottom-0 w-full bg-gradient-to-t from-black/50 to-transparent p-2 lg:p-4 text-white 
             transition-all duration-500 ease-in-out
-            ${
-              showControls || showEpisodes
-                ? "opacity-100 pointer-events-auto"
-                : "opacity-0 pointer-events-none"
+            ${showControls || showEpisodes
+              ? "opacity-100 pointer-events-auto"
+              : "opacity-0 pointer-events-none"
             }`}
         >
           {/* Progress bar */}
@@ -1894,28 +1816,25 @@ const VideoPlayer = ({
 
               {/* Progress */}
               <div
-                className={`absolute top-0 left-0 h-full bg-red-600 ${
-                  isDraggingProgress
+                className={`absolute top-0 left-0 h-full bg-red-600 ${isDraggingProgress
                     ? "h-1 transition-none"
                     : "group-hover/progress:h-1 transition-all duration-200"
-                }`}
+                  }`}
                 style={{
-                  width: `${
-                    ((isDraggingProgress && previewTime !== null
+                  width: `${((isDraggingProgress && previewTime !== null
                       ? previewTime
                       : progress) /
                       duration) *
                     100
-                  }%`,
+                    }%`,
                 }}
               >
                 {/* Thumb */}
                 <div
-                  className={`absolute top-1/2 right-0 translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full shadow-lg transform ${
-                    isDraggingProgress
+                  className={`absolute top-1/2 right-0 translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full shadow-lg transform ${isDraggingProgress
                       ? "scale-125 h-3 w-3 transition-none"
                       : "scale-0 group-hover/progress:scale-100 h-3 w-3 transition-all duration-200"
-                  }`}
+                    }`}
                 />
               </div>
 
@@ -2061,7 +1980,7 @@ const VideoPlayer = ({
               {/* Next episode */}
               {movie.episodes[svr].server_data.length > 0 &&
                 parseInt(episode) <
-                  movie.episodes[svr].server_data.length - 1 && (
+                movie.episodes[svr].server_data.length - 1 && (
                   <div className="relative group/episodes">
                     <button
                       className="hover:scale-125 transition-all ease-linear duration-100 group/tooltip relative p-2 outline-none flex items-center space-x-2"
@@ -2071,8 +1990,7 @@ const VideoPlayer = ({
                           onNavigateToNextEpisode();
                         } else {
                           navigate(
-                            `/xem-phim/${movie.slug}?svr=${svr}&ep=${
-                              parseInt(episode) + 1
+                            `/xem-phim/${movie.slug}?svr=${svr}&ep=${parseInt(episode) + 1
                             }`
                           );
                         }
@@ -2121,8 +2039,7 @@ const VideoPlayer = ({
                                   onNavigateToNextEpisode();
                                 } else {
                                   navigate(
-                                    `/xem-phim/${movie.slug}?svr=${svr}&ep=${
-                                      parseInt(episode) + 1
+                                    `/xem-phim/${movie.slug}?svr=${svr}&ep=${parseInt(episode) + 1
                                     }`
                                   );
                                 }
@@ -2165,9 +2082,8 @@ const VideoPlayer = ({
                       onTouchEnd={(e) => {
                         e.stopPropagation();
                       }}
-                      className={`group-hover/episodes:scale-125 transition-all ease-linear duration-100 p-2 outline-none flex items-center space-x-2 ${
-                        showEpisodes && isMobile ? "text-red-500" : ""
-                      }`}
+                      className={`group-hover/episodes:scale-125 transition-all ease-linear duration-100 p-2 outline-none flex items-center space-x-2 ${showEpisodes && isMobile ? "text-red-500" : ""
+                        }`}
                       aria-label="Danh sách tập"
                     >
                       <ListVideo size={isMobile ? 30 : 40} />
@@ -2181,10 +2097,6 @@ const VideoPlayer = ({
                       }}
                       onEpisodeChange={(newSvr, newEp) => {
                         // Trigger shouldAutoPlay khi chuyển tập từ Episodes
-                        console.log("Episode changed from Episodes:", {
-                          newSvr,
-                          newEp,
-                        });
                         // Set hasPlayedOnce để không hiện nút play lớn
                         setHasPlayedOnce(true);
                       }}
@@ -2216,12 +2128,11 @@ const VideoPlayer = ({
                     <span className="lg:hidden">Tốc độ ({playbackRate}x)</span>
                   </button>
                   <div
-                    className={`absolute bottom-14 right-1/2 bg-black/90 backdrop-blur text-white rounded-md p-1 text-xs lg:text-sm
-                  transition-all duration-200 translate-x-1/2 border border-white/10 ${
-                    showSpeedMenu
-                      ? "opacity-100 visible"
-                      : "opacity-0 invisible lg:group-hover/speed:opacity-100 lg:group-hover/speed:visible"
-                  }`}
+                    className={`absolute bottom-14 right-1/2 bg-[#262626] backdrop-blur text-white rounded-md p-1 text-xs lg:text-sm
+                  transition-all duration-200 translate-x-1/2 border border-white/10 ${showSpeedMenu
+                        ? "opacity-100 visible"
+                        : "opacity-0 invisible lg:group-hover/speed:opacity-100 lg:group-hover/speed:visible"
+                      }`}
                   >
                     {[0.5, 0.75, 1, 1.25, 1.5, 2].map((rate) => (
                       <div
@@ -2232,11 +2143,10 @@ const VideoPlayer = ({
                           setShowSpeedMenu(false);
                         }}
                         className={`px-3 py-1 cursor-pointer hover:bg-white/20 text-center rounded transition
-                    ${
-                      playbackRate === rate
-                        ? "text-red-500 font-semibold bg-white/10"
-                        : ""
-                    }`}
+                    ${playbackRate === rate
+                            ? "text-red-500 font-semibold bg-white/10"
+                            : ""
+                          }`}
                       >
                         {rate}x
                       </div>
@@ -2263,11 +2173,10 @@ const VideoPlayer = ({
                   </button>
                   <div
                     className={`absolute bottom-14 right-1/2 bg-black/90 backdrop-blur text-white rounded-md p-1 text-sm
-                  transition-all duration-200 translate-x-1/2 border border-white/10 min-w-max ${
-                    showQualityMenuState
-                      ? "opacity-100 visible"
-                      : "opacity-0 invisible lg:group-hover/quality:opacity-100 lg:group-hover/quality:visible"
-                  }`}
+                  transition-all duration-200 translate-x-1/2 border border-white/10 min-w-max ${showQualityMenuState
+                        ? "opacity-100 visible"
+                        : "opacity-0 invisible lg:group-hover/quality:opacity-100 lg:group-hover/quality:visible"
+                      }`}
                   >
                     {qualities.map((q) => (
                       <div
@@ -2278,12 +2187,11 @@ const VideoPlayer = ({
                           setShowQualityMenuState(false);
                         }}
                         className={`px-3 py-1 cursor-pointer hover:bg-white/20 text-center rounded transition
-                    ${
-                      currentQuality ===
-                      (q.height === 0 ? "auto" : `${q.height}p`)
-                        ? "text-red-500 font-semibold bg-white/10"
-                        : ""
-                    }`}
+                    ${currentQuality ===
+                            (q.height === 0 ? "auto" : `${q.height}p`)
+                            ? "text-red-500 font-semibold bg-white/10"
+                            : ""
+                          }`}
                       >
                         {q.name}
                       </div>

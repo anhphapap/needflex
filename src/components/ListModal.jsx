@@ -54,8 +54,7 @@ function ListModal({ isOpen, onClose, nameList, params, sortField = "_id" }) {
       if (params && isOpen && page <= totalPage) {
         setLoading(true);
         const currentList = await axios.get(
-          `${
-            import.meta.env.VITE_API_LIST
+          `${import.meta.env.VITE_API_LIST
           }${params}&page=${page}&sort_field=${currentSortField}`
         );
         setMovies((prev) => [...prev, ...currentList.data.data.items]);
@@ -63,7 +62,7 @@ function ListModal({ isOpen, onClose, nameList, params, sortField = "_id" }) {
           setTotalPage(
             Math.ceil(
               currentList.data.data.params.pagination.totalItems /
-                currentList.data.data.params.pagination.totalItemsPerPage
+              currentList.data.data.params.pagination.totalItemsPerPage
             )
           );
         if (!seoOnPage) setSeoOnPage(currentList.data.data.seoOnPage);
@@ -216,30 +215,30 @@ function ListModal({ isOpen, onClose, nameList, params, sortField = "_id" }) {
                 {new Date().getTime() -
                   new Date(item.modified?.time).getTime() <
                   1000 * 60 * 60 * 24 * 3 && (
-                  <>
-                    {item.episode_current.toLowerCase().includes("hoàn tất") ||
-                    item.episode_current.toLowerCase().includes("full") ? (
-                      <span className="absolute bottom-0 left-1/2 -translate-x-1/2 text-white w-[80%] sm:w-auto bg-[#e50914] py-[2px] px-2 rounded-t text-xs font-semibold text-center shadow-black/80 shadow">
-                        Mới thêm
-                      </span>
-                    ) : item.episode_current
+                    <>
+                      {item.episode_current.toLowerCase().includes("hoàn tất") ||
+                        item.episode_current.toLowerCase().includes("full") ? (
+                        <span className="absolute bottom-0 left-1/2 -translate-x-1/2 text-white w-[80%] sm:w-auto bg-[#e50914] py-[2px] px-2 rounded-t text-xs font-semibold text-center shadow-black/80 shadow">
+                          Mới thêm
+                        </span>
+                      ) : item.episode_current
                         .toLowerCase()
                         .includes("trailer") ? (
-                      <span className="absolute bottom-0 left-1/2 -translate-x-1/2 text-black w-[80%] sm:w-auto bg-white py-[2px] px-2 rounded-t text-xs font-semibold text-center shadow-black/80 shadow">
-                        Sắp ra mắt
-                      </span>
-                    ) : (
-                      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 flex xl:flex-row flex-col rounded-t overflow-hidden w-[80%] sm:w-1/2 xl:w-[70%] 2xl:w-1/2">
-                        <span className=" text-white bg-[#e50914] xl:py-[2px] py-[1px] px-1 text-xs font-semibold text-center shadow-black/80 shadow w-full">
-                          Tập mới
+                        <span className="absolute bottom-0 left-1/2 -translate-x-1/2 text-black w-[80%] sm:w-auto bg-white py-[2px] px-2 rounded-t text-xs font-semibold text-center shadow-black/80 shadow">
+                          Sắp ra mắt
                         </span>
-                        <span className="text-black bg-white xl:py-[2px] py-[1px] px-1 text-xs font-semibold text-center shadow-black/80 shadow w-full">
-                          Xem ngay
-                        </span>
-                      </div>
-                    )}
-                  </>
-                )}
+                      ) : (
+                        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 flex xl:flex-row flex-col rounded-t overflow-hidden w-[80%] sm:w-1/2 xl:w-[70%] 2xl:w-[60%]">
+                          <span className=" text-white bg-[#e50914] xl:py-[2px] py-[1px] px-1 text-xs font-semibold text-center shadow-black/80 shadow w-full">
+                            Tập mới
+                          </span>
+                          <span className="text-black bg-white xl:py-[2px] py-[1px] px-1 text-xs font-semibold text-center shadow-black/80 shadow w-full">
+                            Xem ngay
+                          </span>
+                        </div>
+                      )}
+                    </>
+                  )}
               </div>
             ))}
             {loading && (

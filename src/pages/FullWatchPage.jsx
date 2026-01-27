@@ -55,7 +55,7 @@ const FullWatchPage = () => {
       // Reset sau khi video đã load và play (3s là đủ)
       const timer = setTimeout(() => {
         shouldAutoPlayRef.current = false;
-        console.log("shouldAutoPlay reset to false");
+
       }, 3000);
 
       return () => clearTimeout(timer);
@@ -71,7 +71,7 @@ const FullWatchPage = () => {
 
     // Nếu ep hoặc svr thay đổi → user đã click chuyển tập
     if (prevEpRef.current !== ep || prevSvrRef.current !== svr) {
-      console.log("Episode/Server changed, setting shouldAutoPlay to true");
+
       shouldAutoPlayRef.current = true;
 
       // Update refs

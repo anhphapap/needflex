@@ -41,7 +41,7 @@ function SignUpPage() {
         if (error.code === "auth/email-already-in-use")
           toast.error("Email đã được đăng ký trước đó.");
         else {
-          console.log(error);
+
           toast.error("Có lỗi xảy ra vui lòng thử lại sau.");
         }
       }

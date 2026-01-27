@@ -389,7 +389,7 @@ const Banner = ({ type_slug = "phim-bo", filter = false }) => {
   }, [type_slug]);
 
   useEffect(() => {
-    console.log(playing);
+
   }, [playing]);
 
   useEffect(() => {
