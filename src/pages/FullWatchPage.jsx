@@ -130,7 +130,7 @@ const FullWatchPage = () => {
       try {
         if (screen.orientation && screen.orientation.lock) {
           await screen.orientation.lock("landscape").catch(() => {
-            // Orientation lock failed - sẽ show overlay thay thế
+            // Orientation lock failed
           });
         }
       } catch (err) {
@@ -141,6 +141,16 @@ const FullWatchPage = () => {
     // Request fullscreen
     const requestFullscreen = async () => {
       try {
+        // Check if already in fullscreen
+        const isFullscreen = !!(
+          document.fullscreenElement ||
+          document.webkitFullscreenElement ||
+          document.mozFullScreenElement ||
+          document.msFullscreenElement
+        );
+
+        if (isFullscreen) return;
+
         const elem = document.documentElement;
         if (elem.requestFullscreen) {
           await elem.requestFullscreen();
@@ -162,14 +172,28 @@ const FullWatchPage = () => {
       requestFullscreen();
     }, 100);
 
+    // Re-request fullscreen khi quay lại tab/app (visibilitychange)
+    const handleVisibilityChange = async () => {
+      if (document.visibilityState === "visible" && isMobile) {
+        // Delay nhỏ để đảm bảo browser đã xử lý xong visibility
+        setTimeout(async () => {
+          await lockOrientation();
+          await requestFullscreen();
+        }, 300);
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
     return () => {
       clearTimeout(timer);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
       // Unlock orientation khi unmount
       if (screen.orientation && screen.orientation.unlock) {
         screen.orientation.unlock();
       }
     };
-  }, []);
+  }, [isMobile]);
   useEffect(() => {
     const fetchMovie = async () => {
       setLoading(true);
