@@ -995,9 +995,9 @@ export default function MovieModal({
                 )}
             </div>
             <Recommend
-              type={modal.breadCrumb[0].slug.split("/danh-sach")[1]}
-              country={modal.item.country[0].slug}
-              category={modal.item.category[0].slug}
+              type={modal.breadCrumb[0].slug.split("/danh-sach/")[1]}
+              country={modal.item.country.map((country) => country.slug).join(",")}
+              category={modal.item.category.map((category) => category.slug).join(",")}
               slug={modal.item.slug}
             />
             <div className="flex flex-col gap-2" id={"more-info"}>

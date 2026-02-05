@@ -1288,6 +1288,7 @@ const VideoPlayer = ({
     <div
       ref={containerRef}
       className="relative bg-black w-full aspect-video mx-auto overflow-hidden"
+      style={{ cursor: showControls || !hasPlayedOnce ? "default" : "none" }}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
@@ -1374,13 +1375,13 @@ const VideoPlayer = ({
                 <div className="h-2 bg-white/20 rounded-full overflow-hidden">
                   <div
                     className={`h-full rounded-full transition-all duration-150 ${showSwipeControl.type === "volume"
-                        ? "bg-gradient-to-r from-red-500 to-red-600"
-                        : "bg-gradient-to-r from-yellow-400 to-yellow-500"
+                      ? "bg-gradient-to-r from-red-500 to-red-600"
+                      : "bg-gradient-to-r from-yellow-400 to-yellow-500"
                       }`}
                     style={{
                       width: `${showSwipeControl.type === "volume"
-                          ? showSwipeControl.value * 100
-                          : ((showSwipeControl.value - 20) / 180) * 100
+                        ? showSwipeControl.value * 100
+                        : ((showSwipeControl.value - 20) / 180) * 100
                         }%`,
                     }}
                   />
@@ -1405,32 +1406,32 @@ const VideoPlayer = ({
       {centerOverlay && (
         <div
           className={`absolute inset-0 flex items-center pointer-events-none transition-all duration-200 ${centerOverlay === "forward"
-              ? "justify-end px-[6%]"
-              : centerOverlay === "backward"
-                ? "justify-start px-[6%]"
-                : "justify-center lg:flex hidden"
+            ? "justify-end px-[6%]"
+            : centerOverlay === "backward"
+              ? "justify-start px-[6%]"
+              : "justify-center lg:flex hidden"
             }`}
         >
           <div
-            className={`bg-black/40 opacity-80 backdrop-blur-sm rounded-full p-6 lg:p-10 text-white shadow-2xl ${isSeekAnimating
-                ? centerOverlay === "forward"
-                  ? "animate-slideInRight bg-transparent !backdrop-blur-none !shadow-none"
-                  : centerOverlay === "backward"
-                    ? "animate-slideInLeft bg-transparent !backdrop-blur-none !shadow-none"
-                    : "animate-fadeIn"
-                : "animate-fadeOut"
+            className={`bg-black/40 opacity-80 rounded-full p-4 lg:p-6 text-white shadow-2xl ${isSeekAnimating
+              ? centerOverlay === "forward"
+                ? "animate-slideInRight bg-transparent !backdrop-blur-none !shadow-none"
+                : centerOverlay === "backward"
+                  ? "animate-slideInLeft bg-transparent !backdrop-blur-none !shadow-none"
+                  : "animate-fadeIn"
+              : "animate-fadeOut"
               }`}
           >
             {centerOverlay === "play" && (
               <Play
-                size={isMobile ? 48 : 80}
+                size={isMobile ? 30 : 60}
                 className="text-white fill-white drop-shadow-2xl"
                 strokeWidth={2}
               />
             )}
             {centerOverlay === "pause" && (
               <Pause
-                size={isMobile ? 48 : 80}
+                size={isMobile ? 30 : 60}
                 className="text-white fill-white drop-shadow-2xl"
                 strokeWidth={2}
               />
@@ -1735,7 +1736,7 @@ const VideoPlayer = ({
 
       {videoReady && hasPlayedOnce && (
         <div
-          className={`absolute top-0 left-0 w-full flex items-center justify-between bg-gradient-to-b from-black/30 to-transparent transition-opacity duration-300 ${showControls || showEpisodes ? "opacity-100" : "opacity-0"
+          className={`absolute top-0 left-0 w-full grid grid-cols-3 items-center bg-gradient-to-b from-black/30 to-transparent transition-opacity duration-300 ${showControls || showEpisodes ? "opacity-100" : "opacity-0"
             }`}
         >
           <button
@@ -1750,17 +1751,15 @@ const VideoPlayer = ({
                 `/trang-chu?movie=${movie.slug}&tmdb_id=${movie.tmdb.id}&tmdb_type=${movie.tmdb.type}`
               );
             }}
-            className={`hover:scale-125 transition-all ease-linear duration-100 p-4 lg:p-6 text-white z-50 pointer-events-auto active:scale-95`}
+            className={`hover:scale-125 transition-all ease-linear duration-100 p-4 lg:p-6 text-white z-50 pointer-events-auto active:scale-95 justify-self-start`}
           >
             <ArrowLeft size={isMobile ? 30 : 40} />
           </button>
-          <span className="lg:hidden block ml-4 text-sm text-white font-semibold truncate">
-            {movie.name} -{" "}
-            {"Tập " + movie.episodes[svr].server_data[episode].name}
+          <span className="lg:hidden block text-sm text-white truncate text-center px-2">
+            <b className="mr-2">{movie.name}</b>
+            <span>{"Tập " + movie.episodes[svr].server_data[episode].name}</span>
           </span>
-          <button className="hover:scale-125 transition-all opacity-0 ease-linear duration-100 p-4 lg:p-6 text-white z-50 pointer-events-auto active:scale-95">
-            <ArrowLeft size={isMobile ? 30 : 40} />
-          </button>
+          <div className="lg:hidden"></div>
         </div>
       )}
 
@@ -1817,14 +1816,14 @@ const VideoPlayer = ({
               {/* Progress */}
               <div
                 className={`absolute top-0 left-0 h-full bg-red-600 ${isDraggingProgress
-                    ? "h-1 transition-none"
-                    : "group-hover/progress:h-1 transition-all duration-200"
+                  ? "h-1 transition-none"
+                  : "group-hover/progress:h-1 transition-all duration-200"
                   }`}
                 style={{
                   width: `${((isDraggingProgress && previewTime !== null
-                      ? previewTime
-                      : progress) /
-                      duration) *
+                    ? previewTime
+                    : progress) /
+                    duration) *
                     100
                     }%`,
                 }}
@@ -1832,8 +1831,8 @@ const VideoPlayer = ({
                 {/* Thumb */}
                 <div
                   className={`absolute top-1/2 right-0 translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full shadow-lg transform ${isDraggingProgress
-                      ? "scale-125 h-3 w-3 transition-none"
-                      : "scale-0 group-hover/progress:scale-100 h-3 w-3 transition-all duration-200"
+                    ? "scale-125 h-3 w-3 transition-none"
+                    : "scale-0 group-hover/progress:scale-100 h-3 w-3 transition-all duration-200"
                     }`}
                 />
               </div>
@@ -1854,8 +1853,8 @@ const VideoPlayer = ({
           </div>
 
           {/* Buttons */}
-          <div className="flex items-center justify-between px-2 lg:px-3 pt-4 lg:pb-3">
-            <div className="hidden lg:flex items-center space-x-1 lg:space-x-4 flex-wrap">
+          <div className="grid lg:grid-cols-3 items-center w-full px-2 lg:px-3 pt-2 lg:pt-4 lg:pb-3">
+            <div className="col-span-1 hidden lg:flex items-center space-x-1 lg:space-x-4 flex-wrap">
               {/* Play */}
               <button
                 onClick={(e) => {
@@ -1971,12 +1970,12 @@ const VideoPlayer = ({
 
               {/* Title - chỉ desktop */}
             </div>
-            <span className="hidden lg:block ml-4 text-xs lg:text-base font-semibold truncate">
-              {movie.name} -{" "}
-              {"Tập " + movie.episodes[svr].server_data[episode].name}
+            <span className="col-span-1 hidden lg:block ml-4 text-xs lg:text-base truncate text-center">
+              <b className="mr-2">{movie.name}</b>
+              <span>{"Tập " + movie.episodes[svr].server_data[episode].name}</span>
             </span>
 
-            <div className="flex items-center justify-around w-full lg:w-auto lg:justify-start space-x-1 lg:space-x-4">
+            <div className="col-span-1 flex lg:flex-row flex-row-reverse justify-around w-full lg:w-auto lg:justify-end space-x-1 lg:space-x-4">
               {/* Next episode */}
               {movie.episodes[svr].server_data.length > 0 &&
                 parseInt(episode) <
@@ -2129,7 +2128,7 @@ const VideoPlayer = ({
                   </button>
                   <div
                     className={`absolute bottom-14 right-1/2 bg-[#262626] backdrop-blur text-white rounded-md p-1 text-xs lg:text-sm
-                  transition-all duration-200 translate-x-1/2 border border-white/10 ${showSpeedMenu
+                  transition-all duration-200 translate-x-1/2 border border-white/10 z-[100] ${showSpeedMenu
                         ? "opacity-100 visible"
                         : "opacity-0 invisible lg:group-hover/speed:opacity-100 lg:group-hover/speed:visible"
                       }`}

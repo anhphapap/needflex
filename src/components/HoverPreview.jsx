@@ -76,12 +76,14 @@ export default function HoverPreview() {
   };
   const handlePlayMovie = (e, isTrailer = false) => {
     e.stopPropagation();
-    if (isWatching) {
+    // Check cả isWatching VÀ watchingMovie để xử lý "Xem tiếp" cho cả watching carousel và các carousel khác
+    if (isWatching || watchingMovie) {
+      const movieData = watchingMovie || hovered.item;
       const resumeData = {
-        slug: hovered.item.slug,
-        currentTime: hovered.item.currentTime || 0,
-        duration: hovered.item.duration || 0,
-        progress: hovered.item.progress || 0,
+        slug: movieData.slug,
+        currentTime: movieData.currentTime || 0,
+        duration: movieData.duration || 0,
+        progress: movieData.progress || 0,
         timestamp: Date.now(),
       };
 
@@ -89,7 +91,7 @@ export default function HoverPreview() {
 
       // Navigate trực tiếp - VideoPlayer sẽ xử lý fullscreen
       navigate(
-        `/xem-phim/${hovered.item.slug}?svr=${hovered.item.svr}&ep=${hovered.item.episode}`
+        `/xem-phim/${movieData.slug}?svr=${movieData.svr || 0}&ep=${movieData.episode || 0}`
       );
     } else if (isTrailer) {
       toast.warning("Tính năng đang được phát triển.");

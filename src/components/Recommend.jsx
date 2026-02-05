@@ -54,6 +54,8 @@ export default function Recommend({
         setLoading(true);
         const api = `${import.meta.env.VITE_API_LIST
           }${type}?sort_field=${sort_field}&category=${category}&country=${country}&page=${page}&limit=8`;
+
+        console.log(api);
         const res = await axios.get(api);
         const items = res.data.data.items || [];
 

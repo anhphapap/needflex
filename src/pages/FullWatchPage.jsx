@@ -238,20 +238,18 @@ const FullWatchPage = () => {
 
   const watchPageSEO = movie?.seoOnPage
     ? {
-        ...movie.seoOnPage,
-        titleHead: `Xem phim ${movie.item.name} - Tập ${movie.item.episodes[svr].server_data[ep].name}`,
-        descriptionHead: `Xem phim ${movie.item.name} tập ${
-          movie.item.episodes[svr].server_data[ep].name
-        } ${movie.item.quality} Vietsub. ${
-          movie.seoOnPage.descriptionHead ||
-          movie.item.content?.replace(/<[^>]*>/g, "").substring(0, 100) ||
-          ""
+      ...movie.seoOnPage,
+      titleHead: `Xem phim ${movie.item.name} - Tập ${movie.item.episodes[svr].server_data[ep].name}`,
+      descriptionHead: `Xem phim ${movie.item.name} tập ${movie.item.episodes[svr].server_data[ep].name
+        } ${movie.item.quality} Vietsub. ${movie.seoOnPage.descriptionHead ||
+        movie.item.content?.replace(/<[^>]*>/g, "").substring(0, 100) ||
+        ""
         }`,
-      }
+    }
     : null;
 
   return (
-    <div className="flex w-full h-full min-h-screen min-w-screen overflow-hidden">
+    <div className="flex w-full h-screen overflow-hidden">
       {watchPageSEO && (
         <SEO seoData={watchPageSEO} baseUrl={window.location.origin} />
       )}
