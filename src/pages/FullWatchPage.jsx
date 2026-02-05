@@ -22,7 +22,6 @@ const FullWatchPage = () => {
   const prevSvrRef = useRef(svr);
   const navigate = useNavigate();
   const { setCinema } = useCinema();
-  const [isPortrait, setIsPortrait] = useState(false);
 
   const handleNavigateToNextEpisode = () => {
     // Set flag TRƯỚC khi navigate để VideoPlayer nhận được
@@ -98,24 +97,6 @@ const FullWatchPage = () => {
     setCinema(true);
     return () => {
       setCinema(false);
-    };
-  }, []);
-
-  // CHỈ detect orientation để xử lý CSS rotation - KHÔNG can thiệp vào fullscreen
-  useEffect(() => {
-    const checkOrientation = () => {
-      const isMobile = window.innerWidth < 1024;
-      const isPortraitMode = window.innerHeight > window.innerWidth;
-      setIsPortrait(isMobile && isPortraitMode);
-    };
-
-    checkOrientation();
-    window.addEventListener("resize", checkOrientation);
-    window.addEventListener("orientationchange", checkOrientation);
-
-    return () => {
-      window.removeEventListener("resize", checkOrientation);
-      window.removeEventListener("orientationchange", checkOrientation);
     };
   }, []);
   useEffect(() => {
@@ -272,49 +253,30 @@ const FullWatchPage = () => {
       {watchPageSEO && (
         <SEO seoData={watchPageSEO} baseUrl={window.location.origin} />
       )}
-      <div
-        className="w-full h-full flex items-center justify-center"
-        style={
-          isPortrait
-            ? {
-              transform: "rotate(90deg)",
-              transformOrigin: "center center",
-              width: "100vh",
-              height: "100vw",
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              marginLeft: "-50vh",
-              marginTop: "-50vw",
-            }
-            : {}
-        }
-      >
-        <VideoPlayer
-          movie={movie.item}
-          episode={ep}
-          svr={svr}
-          resumeData={resumeData}
-          autoEpisodes={autoEpisodes}
-          isFullWatchPage={true}
-          onVideoEnd={() => {
-            if (
-              autoEpisodes &&
-              parseInt(ep) < movie.item.episodes[svr].server_data.length - 1
-            ) {
-              // Delay để tránh conflict với video đang kết thúc
-              setTimeout(() => {
-                shouldAutoPlayRef.current = true;
-                navigate(
-                  `/xem-phim/${movie.item.slug}?svr=${svr}&ep=${parseInt(ep) + 1}`
-                );
-              }, 100);
-            }
-          }}
-          onNavigateToNextEpisode={handleNavigateToNextEpisode}
-          shouldAutoPlay={shouldAutoPlayRef.current}
-        />
-      </div>
+      <VideoPlayer
+        movie={movie.item}
+        episode={ep}
+        svr={svr}
+        resumeData={resumeData}
+        autoEpisodes={autoEpisodes}
+        isFullWatchPage={true}
+        onVideoEnd={() => {
+          if (
+            autoEpisodes &&
+            parseInt(ep) < movie.item.episodes[svr].server_data.length - 1
+          ) {
+            // Delay để tránh conflict với video đang kết thúc
+            setTimeout(() => {
+              shouldAutoPlayRef.current = true;
+              navigate(
+                `/xem-phim/${movie.item.slug}?svr=${svr}&ep=${parseInt(ep) + 1}`
+              );
+            }, 100);
+          }
+        }}
+        onNavigateToNextEpisode={handleNavigateToNextEpisode}
+        shouldAutoPlay={shouldAutoPlayRef.current}
+      />
     </div>
   );
 };

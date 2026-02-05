@@ -1292,7 +1292,12 @@ const VideoPlayer = ({
     const lockOrientation = async () => {
       try {
         if (screen.orientation && screen.orientation.lock) {
-          await screen.orientation.lock("landscape").catch(() => { });
+          // Try landscape-primary first, fallback to landscape
+          await screen.orientation.lock("landscape-primary").catch(async () => {
+            try {
+              await screen.orientation.lock("landscape");
+            } catch (e) { }
+          });
         }
       } catch (err) { }
     };
@@ -1306,13 +1311,17 @@ const VideoPlayer = ({
           document.msFullscreenElement
         );
 
-        if (isAlreadyFullscreen) return;
+        if (isAlreadyFullscreen) {
+          // Nếu đã fullscreen, chỉ cần lock orientation
+          await lockOrientation();
+          return;
+        }
 
         const container = containerRef.current;
         const video = videoRef.current;
         if (!container || !video) return;
 
-        // iOS Safari: video element fullscreen
+        // iOS Safari: video element fullscreen (tự động landscape)
         if (
           video.webkitEnterFullscreen &&
           typeof video.webkitEnterFullscreen === "function"
@@ -1320,46 +1329,60 @@ const VideoPlayer = ({
           try {
             video.webkitEnterFullscreen();
             setFullscreen(true);
-            await lockOrientation();
             return;
           } catch (err) { }
         }
 
-        // Standard fullscreen API
+        // Standard fullscreen API - fullscreen trước, lock orientation sau
+        let success = false;
         if (container.requestFullscreen) {
           await container.requestFullscreen();
+          success = true;
         } else if (container.webkitRequestFullscreen) {
           await container.webkitRequestFullscreen();
+          success = true;
         } else if (container.mozRequestFullScreen) {
           await container.mozRequestFullScreen();
+          success = true;
         } else if (container.msRequestFullscreen) {
           await container.msRequestFullscreen();
+          success = true;
         }
 
-        setFullscreen(true);
-        await lockOrientation();
+        if (success) {
+          setFullscreen(true);
+          // Lock orientation SAU khi fullscreen
+          setTimeout(() => lockOrientation(), 100);
+        }
       } catch (err) { }
     };
 
     // Initial fullscreen
-    const timer = setTimeout(enterFullscreen, 500);
+    const timer = setTimeout(enterFullscreen, 300);
 
     // Re-enter fullscreen khi quay lại tab
     const handleVisibilityChange = async () => {
       if (document.visibilityState === "visible") {
-        setTimeout(async () => {
-          await enterFullscreen();
-        }, 500);
+        setTimeout(() => enterFullscreen(), 300);
+      }
+    };
+
+    // Re-lock orientation khi orientation change
+    const handleOrientationChange = () => {
+      if (fullscreen) {
+        setTimeout(() => lockOrientation(), 100);
       }
     };
 
     document.addEventListener("visibilitychange", handleVisibilityChange);
+    window.addEventListener("orientationchange", handleOrientationChange);
 
     return () => {
       clearTimeout(timer);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
+      window.removeEventListener("orientationchange", handleOrientationChange);
     };
-  }, [isFullWatchPage, isMobile]);
+  }, [isFullWatchPage, isMobile, fullscreen]);
 
   return (
     <div
@@ -1603,7 +1626,7 @@ const VideoPlayer = ({
 
           {/* Center - Play/Pause & Seek buttons */}
           <div
-            className="flex items-center justify-center gap-16 pointer-events-auto"
+            className="flex items-center justify-center sm:gap-16 pointer-events-auto"
             onTouchStart={(e) => {
               e.stopPropagation();
               clearTimeout(inactivityTimer.current);
