@@ -23,7 +23,6 @@ const FullWatchPage = () => {
   const navigate = useNavigate();
   const { setCinema } = useCinema();
   const [isPortrait, setIsPortrait] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
 
   const handleNavigateToNextEpisode = () => {
     // Set flag TRƯỚC khi navigate để VideoPlayer nhận được
@@ -102,13 +101,12 @@ const FullWatchPage = () => {
     };
   }, []);
 
-  // Detect mobile và orientation - CHỈ để xử lý rotation transform
+  // CHỈ detect orientation để xử lý CSS rotation - KHÔNG can thiệp vào fullscreen
   useEffect(() => {
     const checkOrientation = () => {
-      const mobile = window.innerWidth < 1024;
-      const portrait = window.innerHeight > window.innerWidth;
-      setIsMobile(mobile);
-      setIsPortrait(mobile && portrait);
+      const isMobile = window.innerWidth < 1024;
+      const isPortraitMode = window.innerHeight > window.innerWidth;
+      setIsPortrait(isMobile && isPortraitMode);
     };
 
     checkOrientation();
@@ -298,6 +296,7 @@ const FullWatchPage = () => {
           svr={svr}
           resumeData={resumeData}
           autoEpisodes={autoEpisodes}
+          isFullWatchPage={true}
           onVideoEnd={() => {
             if (
               autoEpisodes &&

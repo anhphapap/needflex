@@ -39,6 +39,7 @@ const VideoPlayer = ({
   onVideoEnd,
   onNavigateToNextEpisode,
   shouldAutoPlay = false,
+  isFullWatchPage = false,
 }) => {
   const containerRef = useRef(null);
   const videoRef = useRef(null);
@@ -1283,6 +1284,82 @@ const VideoPlayer = ({
     hasPlayedOnce,
     resetControlsTimer,
   ]);
+
+  // FullWatchPage Mode - Aggressive fullscreen + orientation lock
+  useEffect(() => {
+    if (!isFullWatchPage || !isMobile) return;
+
+    const lockOrientation = async () => {
+      try {
+        if (screen.orientation && screen.orientation.lock) {
+          await screen.orientation.lock("landscape").catch(() => { });
+        }
+      } catch (err) { }
+    };
+
+    const enterFullscreen = async () => {
+      try {
+        const isAlreadyFullscreen = !!(
+          document.fullscreenElement ||
+          document.webkitFullscreenElement ||
+          document.mozFullScreenElement ||
+          document.msFullscreenElement
+        );
+
+        if (isAlreadyFullscreen) return;
+
+        const container = containerRef.current;
+        const video = videoRef.current;
+        if (!container || !video) return;
+
+        // iOS Safari: video element fullscreen
+        if (
+          video.webkitEnterFullscreen &&
+          typeof video.webkitEnterFullscreen === "function"
+        ) {
+          try {
+            video.webkitEnterFullscreen();
+            setFullscreen(true);
+            await lockOrientation();
+            return;
+          } catch (err) { }
+        }
+
+        // Standard fullscreen API
+        if (container.requestFullscreen) {
+          await container.requestFullscreen();
+        } else if (container.webkitRequestFullscreen) {
+          await container.webkitRequestFullscreen();
+        } else if (container.mozRequestFullScreen) {
+          await container.mozRequestFullScreen();
+        } else if (container.msRequestFullscreen) {
+          await container.msRequestFullscreen();
+        }
+
+        setFullscreen(true);
+        await lockOrientation();
+      } catch (err) { }
+    };
+
+    // Initial fullscreen
+    const timer = setTimeout(enterFullscreen, 500);
+
+    // Re-enter fullscreen khi quay lại tab
+    const handleVisibilityChange = async () => {
+      if (document.visibilityState === "visible") {
+        setTimeout(async () => {
+          await enterFullscreen();
+        }, 500);
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      clearTimeout(timer);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, [isFullWatchPage, isMobile]);
 
   return (
     <div
