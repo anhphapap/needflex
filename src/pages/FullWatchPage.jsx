@@ -22,6 +22,8 @@ const FullWatchPage = () => {
   const prevSvrRef = useRef(svr);
   const navigate = useNavigate();
   const { setCinema } = useCinema();
+  const [isPortrait, setIsPortrait] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   const handleNavigateToNextEpisode = () => {
     // Set flag TRƯỚC khi navigate để VideoPlayer nhận được
@@ -97,6 +99,75 @@ const FullWatchPage = () => {
     setCinema(true);
     return () => {
       setCinema(false);
+    };
+  }, []);
+
+  // Detect mobile và orientation
+  useEffect(() => {
+    const checkOrientation = () => {
+      const mobile = window.innerWidth < 1024;
+      const portrait = window.innerHeight > window.innerWidth;
+      setIsMobile(mobile);
+      setIsPortrait(mobile && portrait);
+    };
+
+    checkOrientation();
+    window.addEventListener("resize", checkOrientation);
+    window.addEventListener("orientationchange", checkOrientation);
+
+    return () => {
+      window.removeEventListener("resize", checkOrientation);
+      window.removeEventListener("orientationchange", checkOrientation);
+    };
+  }, []);
+
+  // Force landscape và fullscreen trên mobile
+  useEffect(() => {
+    if (!isMobile) return;
+
+    // Lock orientation sang landscape
+    const lockOrientation = async () => {
+      try {
+        if (screen.orientation && screen.orientation.lock) {
+          await screen.orientation.lock("landscape").catch(() => {
+            // Orientation lock failed - sẽ show overlay thay thế
+          });
+        }
+      } catch (err) {
+        console.log("Orientation lock not supported");
+      }
+    };
+
+    // Request fullscreen
+    const requestFullscreen = async () => {
+      try {
+        const elem = document.documentElement;
+        if (elem.requestFullscreen) {
+          await elem.requestFullscreen();
+        } else if (elem.webkitRequestFullscreen) {
+          await elem.webkitRequestFullscreen();
+        } else if (elem.mozRequestFullScreen) {
+          await elem.mozRequestFullScreen();
+        } else if (elem.msRequestFullscreen) {
+          await elem.msRequestFullscreen();
+        }
+      } catch (err) {
+        console.log("Fullscreen request failed:", err);
+      }
+    };
+
+    // Delay nhỏ để đảm bảo page đã render
+    const timer = setTimeout(() => {
+      lockOrientation();
+      requestFullscreen();
+    }, 100);
+
+    return () => {
+      clearTimeout(timer);
+      // Unlock orientation khi unmount
+      if (screen.orientation && screen.orientation.unlock) {
+        screen.orientation.unlock();
+      }
     };
   }, []);
   useEffect(() => {
@@ -276,6 +347,34 @@ const FullWatchPage = () => {
         onNavigateToNextEpisode={handleNavigateToNextEpisode}
         shouldAutoPlay={shouldAutoPlayRef.current}
       />
+
+      {/* Portrait mode warning overlay */}
+      {isPortrait && (
+        <div className="absolute inset-0 bg-black z-[10001] flex flex-col items-center justify-center px-8 text-center">
+          <div className="animate-bounce mb-8">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-24 h-24 text-white"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"
+              />
+            </svg>
+          </div>
+          <h2 className="text-white text-2xl font-bold mb-4">
+            Xoay ngang điện thoại
+          </h2>
+          <p className="text-white/70 text-lg">
+            Vui lòng xoay điện thoại sang chế độ ngang để có trải nghiệm xem phim tốt nhất
+          </p>
+        </div>
+      )}
     </div>
   );
 };
