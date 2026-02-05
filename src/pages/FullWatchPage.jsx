@@ -102,7 +102,7 @@ const FullWatchPage = () => {
     };
   }, []);
 
-  // Detect mobile và orientation
+  // Detect mobile và orientation - CHỈ để xử lý rotation transform
   useEffect(() => {
     const checkOrientation = () => {
       const mobile = window.innerWidth < 1024;
@@ -120,80 +120,6 @@ const FullWatchPage = () => {
       window.removeEventListener("orientationchange", checkOrientation);
     };
   }, []);
-
-  // Force landscape và fullscreen trên mobile
-  useEffect(() => {
-    if (!isMobile) return;
-
-    // Lock orientation sang landscape
-    const lockOrientation = async () => {
-      try {
-        if (screen.orientation && screen.orientation.lock) {
-          await screen.orientation.lock("landscape").catch(() => {
-            // Orientation lock failed
-          });
-        }
-      } catch (err) {
-        console.log("Orientation lock not supported");
-      }
-    };
-
-    // Request fullscreen
-    const requestFullscreen = async () => {
-      try {
-        // Check if already in fullscreen
-        const isFullscreen = !!(
-          document.fullscreenElement ||
-          document.webkitFullscreenElement ||
-          document.mozFullScreenElement ||
-          document.msFullscreenElement
-        );
-
-        if (isFullscreen) return;
-
-        const elem = document.documentElement;
-        if (elem.requestFullscreen) {
-          await elem.requestFullscreen();
-        } else if (elem.webkitRequestFullscreen) {
-          await elem.webkitRequestFullscreen();
-        } else if (elem.mozRequestFullScreen) {
-          await elem.mozRequestFullScreen();
-        } else if (elem.msRequestFullscreen) {
-          await elem.msRequestFullscreen();
-        }
-      } catch (err) {
-        console.log("Fullscreen request failed:", err);
-      }
-    };
-
-    // Delay nhỏ để đảm bảo page đã render
-    const timer = setTimeout(() => {
-      lockOrientation();
-      requestFullscreen();
-    }, 100);
-
-    // Re-request fullscreen khi quay lại tab/app (visibilitychange)
-    const handleVisibilityChange = async () => {
-      if (document.visibilityState === "visible" && isMobile) {
-        // Delay nhỏ để đảm bảo browser đã xử lý xong visibility
-        setTimeout(async () => {
-          await lockOrientation();
-          await requestFullscreen();
-        }, 300);
-      }
-    };
-
-    document.addEventListener("visibilitychange", handleVisibilityChange);
-
-    return () => {
-      clearTimeout(timer);
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
-      // Unlock orientation khi unmount
-      if (screen.orientation && screen.orientation.unlock) {
-        screen.orientation.unlock();
-      }
-    };
-  }, [isMobile]);
   useEffect(() => {
     const fetchMovie = async () => {
       setLoading(true);
