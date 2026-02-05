@@ -5,7 +5,7 @@ const SEO = ({
   seoData = null,
   baseUrl = window.location.origin,
   siteName = "Needflex",
-  defaultImage = `${window.location.origin}/android-chrome-512x512.png`,
+  defaultImage = `${window.location.origin}/android-chrome-512x512.png?v=2`,
 }) => {
   if (!seoData) return null;
   const { pathname, search } = useLocation();

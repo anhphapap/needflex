@@ -1,35 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://needflex.site</loc>
-    <lastmod>2025-11-22T13:38:42.560Z</lastmod>
-  </url>
-  <url>
-    <loc>https://needflex.site/trang-chu</loc>
-    <lastmod>2025-11-22T13:38:42.560Z</lastmod>
-  </url>
-  <url>
-    <loc>https://needflex.site/phim-bo</loc>
-    <lastmod>2025-11-22T13:38:42.561Z</lastmod>
-  </url>
-  <url>
-    <loc>https://needflex.site/phim-le</loc>
-    <lastmod>2025-11-22T13:38:42.561Z</lastmod>
-  </url>
-  <url>
-    <loc>https://needflex.site/ung-ho</loc>
-    <lastmod>2025-11-22T13:38:42.561Z</lastmod>
-  </url>
-  <url>
-    <loc>https://needflex.site/duyet-tim/phim-moi</loc>
-    <lastmod>2025-11-22T13:38:42.561Z</lastmod>
-  </url>
-  <url>
-    <loc>https://needflex.site/duyet-tim/phim-le</loc>
-    <lastmod>2025-11-22T13:38:42.561Z</lastmod>
-  </url>
-  <url>
-    <loc>https://needflex.site/duyet-tim/phim-bo</loc>
-    <lastmod>2025-11-22T13:38:42.561Z</lastmod>
-  </url>
-</urlset>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <sitemap>
+    <loc>https://needflex.site/sitemap-static.xml</loc>
+    <lastmod>2026-02-05</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://needflex.site/sitemap-movies.xml</loc>
+    <lastmod>2026-02-05</lastmod>
+  </sitemap>
+</sitemapindex>

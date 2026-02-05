@@ -1,4 +1,37 @@
+# Needflex Robots.txt
+# Updated: 2025-02-05
+
 User-agent: *
 Allow: /
+Disallow: /tai-khoan
+Disallow: /yeu-thich
+Disallow: /api/
 
+# Google Bot
+User-agent: Googlebot
+Allow: /
+Disallow: /tai-khoan
+Disallow: /yeu-thich
+Crawl-delay: 0
+
+# Bing Bot
+User-agent: Bingbot
+Allow: /
+Disallow: /tai-khoan
+Disallow: /yeu-thich
+Crawl-delay: 0
+
+# Yandex Bot
+User-agent: Yandex
+Allow: /
+Disallow: /tai-khoan
+Disallow: /yeu-thich
+Crawl-delay: 1
+
+# Sitemap
 Sitemap: https://needflex.site/sitemap.xml
+Sitemap: https://needflex.site/sitemap-static.xml
+Sitemap: https://needflex.site/sitemap-movies.xml
+
+# Host (Preferred Domain)
+Host: https://needflex.site

@@ -9,7 +9,8 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "generate:sitemap": "node generate-sitemap.js"
+    "generate:sitemap": "node scripts/generate-sitemap.js",
+    "sitemap": "node scripts/generate-sitemap.js"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
