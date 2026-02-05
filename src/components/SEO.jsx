@@ -94,14 +94,12 @@ const SEO = ({
     setMeta("description", mergedData.descriptionHead);
     setMeta(
       "keywords",
-      "xem phim, phim vietsub, phim 2025, Needflex, phim online, phim HD"
+      "xem phim, phim vietsub, phim 2025, Needflex, phim online, phim HD, phim mới"
     );
     setMeta("author", siteName);
-    setMeta(
-      "robots",
-      "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
-    );
-    setMeta("theme-color", "#000000");
+    setMeta("robots", "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1");
+    setMeta("googlebot", "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1");
+    setMeta("bingbot", "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1");
 
     // ✅ OPEN GRAPH
     setMeta("og:locale", "vi_VN", true);
@@ -111,13 +109,18 @@ const SEO = ({
     setMeta("og:description", mergedData.descriptionHead, true);
     setMeta("og:url", url, true);
     setMeta("og:image", image, true);
-    setMeta("og:image:alt", siteName, true);
+    setMeta("og:image:alt", mergedData.titleHead, true);
+    setMeta("og:image:width", "1200", true);
+    setMeta("og:image:height", "630", true);
 
     // ✅ TWITTER
     setMeta("twitter:card", "summary_large_image");
     setMeta("twitter:title", mergedData.titleHead);
     setMeta("twitter:description", mergedData.descriptionHead);
     setMeta("twitter:image", image);
+    setMeta("twitter:image:alt", mergedData.titleHead);
+    setMeta("twitter:site", "@needflex");
+    setMeta("twitter:creator", "@needflex");
 
     // ✅ CANONICAL
     let canonical = document.querySelector('link[rel="canonical"]');
@@ -139,8 +142,8 @@ const SEO = ({
         (mergedData.og_type === "video.movie"
           ? "Movie"
           : mergedData.og_type === "video.tv_show"
-          ? "TVSeries"
-          : "WebSite"),
+            ? "TVSeries"
+            : "WebSite"),
       name: ophimData.name || mergedData.titleHead,
       description: ophimData.description || mergedData.descriptionHead,
       url: `${baseUrl}${pathname}${search}`, // ✅ Ghi đè URL thành needflex.site
