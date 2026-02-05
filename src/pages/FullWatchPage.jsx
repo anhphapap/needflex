@@ -320,61 +320,52 @@ const FullWatchPage = () => {
     : null;
 
   return (
-    <div className="flex w-full h-screen overflow-hidden">
+    <div className="flex w-full h-screen overflow-hidden bg-black">
       {watchPageSEO && (
         <SEO seoData={watchPageSEO} baseUrl={window.location.origin} />
       )}
-      <VideoPlayer
-        movie={movie.item}
-        episode={ep}
-        svr={svr}
-        resumeData={resumeData}
-        autoEpisodes={autoEpisodes}
-        onVideoEnd={() => {
-          if (
-            autoEpisodes &&
-            parseInt(ep) < movie.item.episodes[svr].server_data.length - 1
-          ) {
-            // Delay để tránh conflict với video đang kết thúc
-            setTimeout(() => {
-              shouldAutoPlayRef.current = true;
-              navigate(
-                `/xem-phim/${movie.item.slug}?svr=${svr}&ep=${parseInt(ep) + 1}`
-              );
-            }, 100);
-          }
-        }}
-        onNavigateToNextEpisode={handleNavigateToNextEpisode}
-        shouldAutoPlay={shouldAutoPlayRef.current}
-      />
-
-      {/* Portrait mode warning overlay */}
-      {isPortrait && (
-        <div className="absolute inset-0 bg-black z-[10001] flex flex-col items-center justify-center px-8 text-center">
-          <div className="animate-bounce mb-8">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-24 h-24 text-white"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"
-              />
-            </svg>
-          </div>
-          <h2 className="text-white text-2xl font-bold mb-4">
-            Xoay ngang điện thoại
-          </h2>
-          <p className="text-white/70 text-lg">
-            Vui lòng xoay điện thoại sang chế độ ngang để có trải nghiệm xem phim tốt nhất
-          </p>
-        </div>
-      )}
+      <div
+        className="w-full h-full flex items-center justify-center"
+        style={
+          isPortrait
+            ? {
+              transform: "rotate(90deg)",
+              transformOrigin: "center center",
+              width: "100vh",
+              height: "100vw",
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              marginLeft: "-50vh",
+              marginTop: "-50vw",
+            }
+            : {}
+        }
+      >
+        <VideoPlayer
+          movie={movie.item}
+          episode={ep}
+          svr={svr}
+          resumeData={resumeData}
+          autoEpisodes={autoEpisodes}
+          onVideoEnd={() => {
+            if (
+              autoEpisodes &&
+              parseInt(ep) < movie.item.episodes[svr].server_data.length - 1
+            ) {
+              // Delay để tránh conflict với video đang kết thúc
+              setTimeout(() => {
+                shouldAutoPlayRef.current = true;
+                navigate(
+                  `/xem-phim/${movie.item.slug}?svr=${svr}&ep=${parseInt(ep) + 1}`
+                );
+              }, 100);
+            }
+          }}
+          onNavigateToNextEpisode={handleNavigateToNextEpisode}
+          shouldAutoPlay={shouldAutoPlayRef.current}
+        />
+      </div>
     </div>
   );
 };
