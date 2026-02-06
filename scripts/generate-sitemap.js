@@ -44,10 +44,21 @@ function formatDate(dateObj) {
 async function fetchMovies(page = 1) {
     try {
         const url = `${CONFIG.API_BASE}/danh-sach/phim-moi-cap-nhat?page=${page}`;
-        console.log(`📡 Fetching page ${page}...`);
+        console.log(`📡 Fetching page ${page}: ${url}`);
 
-        const response = await fetch(url);
+        const response = await fetch(url, {
+            headers: {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+            }
+        });
+
+        if (!response.ok) {
+            console.error(`❌ HTTP Error ${response.status}: ${response.statusText}`);
+            return [];
+        }
+
         const data = await response.json();
+        console.log(`✅ Page ${page}: ${data.data?.items?.length || 0} movies`);
 
         return data.data?.items || [];
     } catch (error) {
@@ -63,11 +74,12 @@ function generateUrlEntry(movie) {
     const slug = movie.slug;
     const tmdbId = movie.tmdb?.id || 0;
     const tmdbType = movie.tmdb?.type || 'movie';
-    const url = `${CONFIG.SITE_URL}/trang-chu?movie=${slug}&tmdb_id=${tmdbId}&tmdb_type=${tmdbType}`;
+    // ✅ Escape & trong URL thành &amp; cho XML
+    const url = `${CONFIG.SITE_URL}/trang-chu?movie=${slug}&amp;tmdb_id=${tmdbId}&amp;tmdb_type=${tmdbType}`;
 
     const posterUrl = movie.poster_url
         ? `https://img.ophim.live/uploads/movies/${movie.poster_url}`
-        : `${CONFIG.SITE_URL}/android-chrome-512x512.png`;
+        : `${CONFIG.SITE_URL}/android-chrome-512x512.png?v=2`;
 
     const thumbUrl = movie.thumb_url
         ? `https://img.ophim.live/uploads/movies/${movie.thumb_url}`
