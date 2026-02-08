@@ -323,21 +323,21 @@ export default function Carousel({
                           .toLowerCase()
                           .includes("hoàn tất") ||
                           item.episode_current.toLowerCase().includes("full") ? (
-                          <span className="text-nowrap line-clamp-1 absolute bottom-0 left-1/2 -translate-x-1/2 text-white w-auto bg-[#e50914] py-[2px] px-2 rounded-t text-xs font-semibold text-center shadow-black/80 shadow">
+                          <span className="text-nowrap absolute bottom-0 left-1/2 -translate-x-1/2 text-white w-auto bg-[#e50914] py-[2px] px-2 rounded-t text-xs font-semibold text-center shadow-black/80 shadow">
                             Mới thêm
                           </span>
                         ) : item.episode_current
                           .toLowerCase()
                           .includes("trailer") ? (
-                          <span className="text-nowrap line-clamp-1 absolute bottom-0 left-1/2 -translate-x-1/2 text-black w-auto bg-white py-[2px] px-2 rounded-t text-xs font-semibold text-center shadow-black/80 shadow">
+                          <span className="text-nowrap absolute bottom-0 left-1/2 -translate-x-1/2 text-black w-auto bg-white py-[2px] px-2 rounded-t text-xs font-semibold text-center shadow-black/80 shadow">
                             Sắp ra mắt
                           </span>
                         ) : (
                           <div className="text-nowrap absolute bottom-0 left-1/2 -translate-x-1/2 flex flex-col rounded-t overflow-hidden w-auto">
-                            <span className="text-nowrap line-clamp-1 text-white bg-[#e50914] xl:py-[2px] py-[1px] px-2 text-xs font-semibold text-center shadow-black/80 shadow">
+                            <span className="text-nowrap text-white bg-[#e50914] xl:py-[2px] py-[1px] px-2 text-xs font-semibold text-center shadow-black/80 shadow">
                               Tập mới
                             </span>
-                            <span className="text-nowrap line-clamp-1 text-black bg-white py-[2px] px-2 text-xs font-semibold text-center shadow-black/80 shadow">
+                            <span className="text-nowrap text-black bg-white py-[2px] px-2 text-xs font-semibold text-center shadow-black/80 shadow">
                               Xem ngay
                             </span>
                           </div>
@@ -542,25 +542,23 @@ export default function Carousel({
                     new Date(item.modified?.time).getTime() <
                     1000 * 60 * 60 * 24 * 3 && (
                       <>
-                        {item.episode_current
-                          .toLowerCase()
-                          .includes("hoàn tất") ||
+                        {item.episode_current.toLowerCase().includes("hoàn tất") ||
                           item.episode_current.toLowerCase().includes("full") ? (
-                          <span className="text-nowrap line-clamp-1 absolute bottom-0 left-1/2 -translate-x-1/2 text-white w-auto bg-[#e50914] py-[2px] px-2 rounded-t text-xs font-semibold text-center shadow-black/80 shadow">
+                          <span className="line-clamp-1 absolute bottom-0 left-1/2 -translate-x-1/2 text-white w-[80%] sm:w-auto bg-[#e50914] py-[2px] px-2 rounded-t text-xs font-semibold text-center shadow-black/80 shadow">
                             Mới thêm
                           </span>
                         ) : item.episode_current
                           .toLowerCase()
                           .includes("trailer") ? (
-                          <span className="text-nowrap line-clamp-1 absolute bottom-0 left-1/2 -translate-x-1/2 text-black w-auto bg-white py-[2px] px-2 rounded-t text-xs font-semibold text-center shadow-black/80 shadow">
+                          <span className="line-clamp-1 absolute bottom-0 left-1/2 -translate-x-1/2 text-black w-[80%] sm:w-auto bg-white py-[2px] px-2 rounded-t text-xs font-semibold text-center shadow-black/80 shadow">
                             Sắp ra mắt
                           </span>
                         ) : (
-                          <div className="text-nowrap absolute bottom-0 left-1/2 -translate-x-1/2 flex xl:flex-row flex-col rounded-t overflow-hidden w-auto">
-                            <span className="text-nowrap line-clamp-1 text-white bg-[#e50914] xl:py-[2px] py-[1px] px-2 text-xs font-semibold text-center shadow-black/80 shadow">
+                          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 flex xl:flex-row flex-col rounded-t overflow-hidden w-[80%] sm:w-1/2 xl:w-[70%] 2xl:w-[60%]">
+                            <span className="line-clamp-1 text-white bg-[#e50914] xl:py-[2px] py-[1px] px-1 text-xs font-semibold text-center shadow-black/80 shadow w-full">
                               Tập mới
                             </span>
-                            <span className="text-nowrap line-clamp-1 text-black bg-white xl:py-[2px] py-[1px] px-2 text-xs font-semibold text-center shadow-black/80 shadow">
+                            <span className="line-clamp-1 text-black bg-white xl:py-[2px] py-[1px] px-1 text-xs font-semibold text-center shadow-black/80 shadow w-full">
                               Xem ngay
                             </span>
                           </div>
@@ -733,25 +731,23 @@ export default function Carousel({
                       new Date(item.modified?.time).getTime() <
                       1000 * 60 * 60 * 24 * 3 && (
                         <>
-                          {item.episode_current
-                            .toLowerCase()
-                            .includes("hoàn tất") ||
+                          {item.episode_current.toLowerCase().includes("hoàn tất") ||
                             item.episode_current.toLowerCase().includes("full") ? (
-                            <span className="text-nowrap line-clamp-1 absolute bottom-0 left-1/2 -translate-x-1/2 text-white w-auto bg-[#e50914] py-[2px] px-2 rounded-t text-xs font-semibold text-center shadow-black/80 shadow">
+                            <span className="line-clamp-1 absolute bottom-0 left-1/2 -translate-x-1/2 text-white w-[80%] sm:w-auto bg-[#e50914] py-[2px] px-2 rounded-t text-xs font-semibold text-center shadow-black/80 shadow">
                               Mới thêm
                             </span>
                           ) : item.episode_current
                             .toLowerCase()
                             .includes("trailer") ? (
-                            <span className="text-nowrap line-clamp-1 absolute bottom-0 left-1/2 -translate-x-1/2 text-black w-auto bg-white py-[2px] px-2 rounded-t text-xs font-semibold text-center shadow-black/80 shadow">
+                            <span className="line-clamp-1 absolute bottom-0 left-1/2 -translate-x-1/2 text-black w-[80%] sm:w-auto bg-white py-[2px] px-2 rounded-t text-xs font-semibold text-center shadow-black/80 shadow">
                               Sắp ra mắt
                             </span>
                           ) : (
-                            <div className="text-nowrap absolute bottom-0 left-1/2 -translate-x-1/2 flex xl:flex-row flex-col rounded-t overflow-hidden w-auto">
-                              <span className="text-nowrap line-clamp-1 text-white bg-[#e50914] xl:py-[2px] py-[1px] px-2 text-xs font-semibold text-center shadow-black/80 shadow">
+                            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 flex xl:flex-row flex-col rounded-t overflow-hidden w-[80%] sm:w-1/2 xl:w-[70%] 2xl:w-[60%]">
+                              <span className="line-clamp-1 text-white bg-[#e50914] xl:py-[2px] py-[1px] px-1 text-xs font-semibold text-center shadow-black/80 shadow w-full">
                                 Tập mới
                               </span>
-                              <span className="text-nowrap line-clamp-1 text-black bg-white xl:py-[2px] py-[1px] px-2 text-xs font-semibold text-center shadow-black/80 shadow">
+                              <span className="line-clamp-1 text-black bg-white xl:py-[2px] py-[1px] px-1 text-xs font-semibold text-center shadow-black/80 shadow w-full">
                                 Xem ngay
                               </span>
                             </div>
@@ -797,21 +793,21 @@ export default function Carousel({
                             .toLowerCase()
                             .includes("hoàn tất") ||
                             item.episode_current.toLowerCase().includes("full") ? (
-                            <span className="text-nowrap line-clamp-1 absolute bottom-0 left-1/2 -translate-x-1/2 text-white w-auto bg-[#e50914] py-[2px] px-2 rounded-t text-xs font-semibold text-center shadow-black/80 shadow">
+                            <span className="text-nowrap absolute bottom-0 left-1/2 -translate-x-1/2 text-white w-auto bg-[#e50914] py-[2px] px-2 rounded-t text-xs font-semibold text-center shadow-black/80 shadow">
                               Mới thêm
                             </span>
                           ) : item.episode_current
                             .toLowerCase()
                             .includes("trailer") ? (
-                            <span className="text-nowrap line-clamp-1 absolute bottom-0 left-1/2 -translate-x-1/2 text-black w-auto bg-white py-[2px] px-2 rounded-t text-xs font-semibold text-center shadow-black/80 shadow">
+                            <span className="text-nowrap absolute bottom-0 left-1/2 -translate-x-1/2 text-black w-auto bg-white py-[2px] px-2 rounded-t text-xs font-semibold text-center shadow-black/80 shadow">
                               Sắp ra mắt
                             </span>
                           ) : (
                             <div className="text-nowrap absolute bottom-0 left-1/2 -translate-x-1/2 flex xl:flex-row flex-col rounded-t overflow-hidden w-auto">
-                              <span className="text-nowrap line-clamp-1 text-white bg-[#e50914] xl:py-[2px] py-[1px] px-2 text-xs font-semibold text-center shadow-black/80 shadow">
+                              <span className="text-nowrap text-white bg-[#e50914] xl:py-[2px] py-[1px] px-2 text-xs font-semibold text-center shadow-black/80 shadow">
                                 Tập mới
                               </span>
-                              <span className="text-nowrap line-clamp-1 text-black bg-white xl:py-[2px] py-[1px] px-2 text-xs font-semibold text-center shadow-black/80 shadow">
+                              <span className="text-nowrap text-black bg-white xl:py-[2px] py-[1px] px-2 text-xs font-semibold text-center shadow-black/80 shadow">
                                 Xem ngay
                               </span>
                             </div>
