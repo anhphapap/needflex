@@ -84,8 +84,7 @@ export default function Carousel({
 
     try {
       const res = await axios.get(
-        `${
-          import.meta.env.VITE_API_LIST
+        `${import.meta.env.VITE_API_LIST
         }${type_slug}?sort_field=${sort_field}&category=${category}&country=${country}&year=${year}&page=${pageNum}&limit=8`
       );
       const items = res.data.data.items || [];
@@ -319,32 +318,32 @@ export default function Carousel({
                   {new Date().getTime() -
                     new Date(item.modified?.time).getTime() <
                     1000 * 60 * 60 * 24 * 3 && (
-                    <>
-                      {item.episode_current
-                        .toLowerCase()
-                        .includes("hoàn tất") ||
-                      item.episode_current.toLowerCase().includes("full") ? (
-                        <span className="text-nowrap absolute bottom-0 left-1/2 -translate-x-1/2 text-white w-auto bg-[#e50914] py-[2px] px-2 rounded-t text-xs font-semibold text-center shadow-black/80 shadow">
-                          Mới thêm
-                        </span>
-                      ) : item.episode_current
+                      <>
+                        {item.episode_current
+                          .toLowerCase()
+                          .includes("hoàn tất") ||
+                          item.episode_current.toLowerCase().includes("full") ? (
+                          <span className="text-nowrap line-clamp-1 absolute bottom-0 left-1/2 -translate-x-1/2 text-white w-auto bg-[#e50914] py-[2px] px-2 rounded-t text-xs font-semibold text-center shadow-black/80 shadow">
+                            Mới thêm
+                          </span>
+                        ) : item.episode_current
                           .toLowerCase()
                           .includes("trailer") ? (
-                        <span className="text-nowrap absolute bottom-0 left-1/2 -translate-x-1/2 text-black w-auto bg-white py-[2px] px-2 rounded-t text-xs font-semibold text-center shadow-black/80 shadow">
-                          Sắp ra mắt
-                        </span>
-                      ) : (
-                        <div className="text-nowrap absolute bottom-0 left-1/2 -translate-x-1/2 flex flex-col rounded-t overflow-hidden w-auto">
-                          <span className="text-nowrap text-white bg-[#e50914] xl:py-[2px] py-[1px] px-2 text-xs font-semibold text-center shadow-black/80 shadow">
-                            Tập mới
+                          <span className="text-nowrap line-clamp-1 absolute bottom-0 left-1/2 -translate-x-1/2 text-black w-auto bg-white py-[2px] px-2 rounded-t text-xs font-semibold text-center shadow-black/80 shadow">
+                            Sắp ra mắt
                           </span>
-                          <span className="text-nowrap text-black bg-white py-[2px] px-2 text-xs font-semibold text-center shadow-black/80 shadow">
-                            Xem ngay
-                          </span>
-                        </div>
-                      )}
-                    </>
-                  )}
+                        ) : (
+                          <div className="text-nowrap absolute bottom-0 left-1/2 -translate-x-1/2 flex flex-col rounded-t overflow-hidden w-auto">
+                            <span className="text-nowrap line-clamp-1 text-white bg-[#e50914] xl:py-[2px] py-[1px] px-2 text-xs font-semibold text-center shadow-black/80 shadow">
+                              Tập mới
+                            </span>
+                            <span className="text-nowrap line-clamp-1 text-black bg-white py-[2px] px-2 text-xs font-semibold text-center shadow-black/80 shadow">
+                              Xem ngay
+                            </span>
+                          </div>
+                        )}
+                      </>
+                    )}
                 </div>
               </div>
             </SwiperSlide>
@@ -353,9 +352,8 @@ export default function Carousel({
         <button
           ref={prevRef}
           style={{ height: swiperHeight + 1 || "100%" }}
-          className={`group/left absolute -left-[3.19%] -bottom-[0.5px] z-20 bg-black/50 group-hover/carousel:bg-black/80 text-transparent group-hover/carousel:text-white w-[3%] flex items-center justify-center rounded-e-sm transition-all ease-in-out duration-100 cursor-pointer ${
-            canSlidePrev ? "visible" : "invisible"
-          }`}
+          className={`group/left absolute -left-[3.19%] -bottom-[0.5px] z-20 bg-black/50 group-hover/carousel:bg-black/80 text-transparent group-hover/carousel:text-white w-[3%] flex items-center justify-center rounded-e-sm transition-all ease-in-out duration-100 cursor-pointer ${canSlidePrev ? "visible" : "invisible"
+            }`}
           disabled={!canSlidePrev}
         >
           <ChevronLeft
@@ -366,9 +364,8 @@ export default function Carousel({
         <button
           ref={nextRef}
           style={{ height: swiperHeight + 1 || "100%" }}
-          className={`group/right absolute -right-[3.19%] -bottom-[0.5px] z-20 bg-black/50 group-hover/carousel:bg-black/80 text-transparent group-hover/carousel:text-white w-[3%] flex items-center justify-center rounded-s-sm transition-all ease-in-out duration-100 cursor-pointer ${
-            canSlideNext ? "visible" : "invisible"
-          }`}
+          className={`group/right absolute -right-[3.19%] -bottom-[0.5px] z-20 bg-black/50 group-hover/carousel:bg-black/80 text-transparent group-hover/carousel:text-white w-[3%] flex items-center justify-center rounded-s-sm transition-all ease-in-out duration-100 cursor-pointer ${canSlideNext ? "visible" : "invisible"
+            }`}
           disabled={!canSlideNext}
         >
           <ChevronRight
@@ -544,32 +541,32 @@ export default function Carousel({
                   {new Date().getTime() -
                     new Date(item.modified?.time).getTime() <
                     1000 * 60 * 60 * 24 * 3 && (
-                    <>
-                      {item.episode_current
-                        .toLowerCase()
-                        .includes("hoàn tất") ||
-                      item.episode_current.toLowerCase().includes("full") ? (
-                        <span className="text-nowrap absolute bottom-0 left-1/2 -translate-x-1/2 text-white w-auto bg-[#e50914] py-[2px] px-2 rounded-t text-xs font-semibold text-center shadow-black/80 shadow">
-                          Mới thêm
-                        </span>
-                      ) : item.episode_current
+                      <>
+                        {item.episode_current
+                          .toLowerCase()
+                          .includes("hoàn tất") ||
+                          item.episode_current.toLowerCase().includes("full") ? (
+                          <span className="text-nowrap line-clamp-1 absolute bottom-0 left-1/2 -translate-x-1/2 text-white w-auto bg-[#e50914] py-[2px] px-2 rounded-t text-xs font-semibold text-center shadow-black/80 shadow">
+                            Mới thêm
+                          </span>
+                        ) : item.episode_current
                           .toLowerCase()
                           .includes("trailer") ? (
-                        <span className="text-nowrap absolute bottom-0 left-1/2 -translate-x-1/2 text-black w-auto bg-white py-[2px] px-2 rounded-t text-xs font-semibold text-center shadow-black/80 shadow">
-                          Sắp ra mắt
-                        </span>
-                      ) : (
-                        <div className="text-nowrap absolute bottom-0 left-1/2 -translate-x-1/2 flex xl:flex-row flex-col rounded-t overflow-hidden w-auto">
-                          <span className="text-nowrap text-white bg-[#e50914] xl:py-[2px] py-[1px] px-2 text-xs font-semibold text-center shadow-black/80 shadow">
-                            Tập mới
+                          <span className="text-nowrap line-clamp-1 absolute bottom-0 left-1/2 -translate-x-1/2 text-black w-auto bg-white py-[2px] px-2 rounded-t text-xs font-semibold text-center shadow-black/80 shadow">
+                            Sắp ra mắt
                           </span>
-                          <span className="text-nowrap text-black bg-white xl:py-[2px] py-[1px] px-2 text-xs font-semibold text-center shadow-black/80 shadow">
-                            Xem ngay
-                          </span>
-                        </div>
-                      )}
-                    </>
-                  )}
+                        ) : (
+                          <div className="text-nowrap absolute bottom-0 left-1/2 -translate-x-1/2 flex xl:flex-row flex-col rounded-t overflow-hidden w-auto">
+                            <span className="text-nowrap line-clamp-1 text-white bg-[#e50914] xl:py-[2px] py-[1px] px-2 text-xs font-semibold text-center shadow-black/80 shadow">
+                              Tập mới
+                            </span>
+                            <span className="text-nowrap line-clamp-1 text-black bg-white xl:py-[2px] py-[1px] px-2 text-xs font-semibold text-center shadow-black/80 shadow">
+                              Xem ngay
+                            </span>
+                          </div>
+                        )}
+                      </>
+                    )}
                 </div>
               </SwiperSlide>
             ))}
@@ -588,9 +585,8 @@ export default function Carousel({
         <button
           ref={prevRef}
           style={{ height: swiperHeight + 1 || "100%" }}
-          className={`group/left absolute -left-[3.19%] -bottom-[0.5px] z-20 bg-black/50 group-hover/carousel:bg-black/80 text-transparent group-hover/carousel:text-white w-[3%] flex items-center justify-center rounded-e-sm transition-all ease-in-out duration-100 cursor-pointer ${
-            canSlidePrev ? "visible" : "invisible"
-          }`}
+          className={`group/left absolute -left-[3.19%] -bottom-[0.5px] z-20 bg-black/50 group-hover/carousel:bg-black/80 text-transparent group-hover/carousel:text-white w-[3%] flex items-center justify-center rounded-e-sm transition-all ease-in-out duration-100 cursor-pointer ${canSlidePrev ? "visible" : "invisible"
+            }`}
           disabled={!canSlidePrev}
         >
           <ChevronLeft
@@ -601,9 +597,8 @@ export default function Carousel({
         <button
           ref={nextRef}
           style={{ height: swiperHeight + 1 || "100%" }}
-          className={`group/right absolute -right-[3.19%] -bottom-[0.5px] z-20 bg-black/50 group-hover/carousel:bg-black/80 text-transparent group-hover/carousel:text-white w-[3%] flex items-center justify-center rounded-s-sm transition-all ease-in-out duration-100 cursor-pointer ${
-            canSlideNext ? "visible" : "invisible"
-          }`}
+          className={`group/right absolute -right-[3.19%] -bottom-[0.5px] z-20 bg-black/50 group-hover/carousel:bg-black/80 text-transparent group-hover/carousel:text-white w-[3%] flex items-center justify-center rounded-s-sm transition-all ease-in-out duration-100 cursor-pointer ${canSlideNext ? "visible" : "invisible"
+            }`}
           disabled={!canSlideNext}
         >
           <ChevronRight
@@ -626,12 +621,12 @@ export default function Carousel({
       <div className="flex justify-between items-center w-full mb-3">
         <div
           className="group font-medium flex justify-between items-center md:inline-block gap-2 w-full md:w-auto"
-          // onClick={() =>
-          //   openList({
-          //     params: `${type_slug}?category=${category}&country=${country}&year=${year}`,
-          //     nameList,
-          //   })
-          // }
+        // onClick={() =>
+        //   openList({
+        //     params: `${type_slug}?category=${category}&country=${country}&year=${year}`,
+        //     nameList,
+        //   })
+        // }
         >
           <span className="text-white transition-all ease-in-out duration-500">
             {nameList} {user.displayName}
@@ -737,32 +732,32 @@ export default function Carousel({
                     {new Date().getTime() -
                       new Date(item.modified?.time).getTime() <
                       1000 * 60 * 60 * 24 * 3 && (
-                      <>
-                        {item.episode_current
-                          .toLowerCase()
-                          .includes("hoàn tất") ||
-                        item.episode_current.toLowerCase().includes("full") ? (
-                          <span className="text-nowrap absolute bottom-0 left-1/2 -translate-x-1/2 text-white w-auto bg-[#e50914] py-[2px] px-2 rounded-t text-xs font-semibold text-center shadow-black/80 shadow">
-                            Mới thêm
-                          </span>
-                        ) : item.episode_current
+                        <>
+                          {item.episode_current
+                            .toLowerCase()
+                            .includes("hoàn tất") ||
+                            item.episode_current.toLowerCase().includes("full") ? (
+                            <span className="text-nowrap line-clamp-1 absolute bottom-0 left-1/2 -translate-x-1/2 text-white w-auto bg-[#e50914] py-[2px] px-2 rounded-t text-xs font-semibold text-center shadow-black/80 shadow">
+                              Mới thêm
+                            </span>
+                          ) : item.episode_current
                             .toLowerCase()
                             .includes("trailer") ? (
-                          <span className="text-nowrap absolute bottom-0 left-1/2 -translate-x-1/2 text-black w-auto bg-white py-[2px] px-2 rounded-t text-xs font-semibold text-center shadow-black/80 shadow">
-                            Sắp ra mắt
-                          </span>
-                        ) : (
-                          <div className="text-nowrap absolute bottom-0 left-1/2 -translate-x-1/2 flex xl:flex-row flex-col rounded-t overflow-hidden w-auto">
-                            <span className="text-nowrap text-white bg-[#e50914] xl:py-[2px] py-[1px] px-2 text-xs font-semibold text-center shadow-black/80 shadow">
-                              Tập mới
+                            <span className="text-nowrap line-clamp-1 absolute bottom-0 left-1/2 -translate-x-1/2 text-black w-auto bg-white py-[2px] px-2 rounded-t text-xs font-semibold text-center shadow-black/80 shadow">
+                              Sắp ra mắt
                             </span>
-                            <span className="text-nowrap text-black bg-white xl:py-[2px] py-[1px] px-2 text-xs font-semibold text-center shadow-black/80 shadow">
-                              Xem ngay
-                            </span>
-                          </div>
-                        )}
-                      </>
-                    )}
+                          ) : (
+                            <div className="text-nowrap absolute bottom-0 left-1/2 -translate-x-1/2 flex xl:flex-row flex-col rounded-t overflow-hidden w-auto">
+                              <span className="text-nowrap line-clamp-1 text-white bg-[#e50914] xl:py-[2px] py-[1px] px-2 text-xs font-semibold text-center shadow-black/80 shadow">
+                                Tập mới
+                              </span>
+                              <span className="text-nowrap line-clamp-1 text-black bg-white xl:py-[2px] py-[1px] px-2 text-xs font-semibold text-center shadow-black/80 shadow">
+                                Xem ngay
+                              </span>
+                            </div>
+                          )}
+                        </>
+                      )}
                   </div>
 
                   {item.sub_docquyen && (
@@ -797,32 +792,32 @@ export default function Carousel({
                     {new Date().getTime() -
                       new Date(item.modified?.time).getTime() <
                       1000 * 60 * 60 * 24 * 3 && (
-                      <>
-                        {item.episode_current
-                          .toLowerCase()
-                          .includes("hoàn tất") ||
-                        item.episode_current.toLowerCase().includes("full") ? (
-                          <span className="text-nowrap absolute bottom-0 left-1/2 -translate-x-1/2 text-white w-auto bg-[#e50914] py-[2px] px-2 rounded-t text-xs font-semibold text-center shadow-black/80 shadow">
-                            Mới thêm
-                          </span>
-                        ) : item.episode_current
+                        <>
+                          {item.episode_current
+                            .toLowerCase()
+                            .includes("hoàn tất") ||
+                            item.episode_current.toLowerCase().includes("full") ? (
+                            <span className="text-nowrap line-clamp-1 absolute bottom-0 left-1/2 -translate-x-1/2 text-white w-auto bg-[#e50914] py-[2px] px-2 rounded-t text-xs font-semibold text-center shadow-black/80 shadow">
+                              Mới thêm
+                            </span>
+                          ) : item.episode_current
                             .toLowerCase()
                             .includes("trailer") ? (
-                          <span className="text-nowrap absolute bottom-0 left-1/2 -translate-x-1/2 text-black w-auto bg-white py-[2px] px-2 rounded-t text-xs font-semibold text-center shadow-black/80 shadow">
-                            Sắp ra mắt
-                          </span>
-                        ) : (
-                          <div className="text-nowrap absolute bottom-0 left-1/2 -translate-x-1/2 flex xl:flex-row flex-col rounded-t overflow-hidden w-auto">
-                            <span className="text-nowrap text-white bg-[#e50914] xl:py-[2px] py-[1px] px-2 text-xs font-semibold text-center shadow-black/80 shadow">
-                              Tập mới
+                            <span className="text-nowrap line-clamp-1 absolute bottom-0 left-1/2 -translate-x-1/2 text-black w-auto bg-white py-[2px] px-2 rounded-t text-xs font-semibold text-center shadow-black/80 shadow">
+                              Sắp ra mắt
                             </span>
-                            <span className="text-nowrap text-black bg-white xl:py-[2px] py-[1px] px-2 text-xs font-semibold text-center shadow-black/80 shadow">
-                              Xem ngay
-                            </span>
-                          </div>
-                        )}
-                      </>
-                    )}
+                          ) : (
+                            <div className="text-nowrap absolute bottom-0 left-1/2 -translate-x-1/2 flex xl:flex-row flex-col rounded-t overflow-hidden w-auto">
+                              <span className="text-nowrap line-clamp-1 text-white bg-[#e50914] xl:py-[2px] py-[1px] px-2 text-xs font-semibold text-center shadow-black/80 shadow">
+                                Tập mới
+                              </span>
+                              <span className="text-nowrap line-clamp-1 text-black bg-white xl:py-[2px] py-[1px] px-2 text-xs font-semibold text-center shadow-black/80 shadow">
+                                Xem ngay
+                              </span>
+                            </div>
+                          )}
+                        </>
+                      )}
                   </div>
                   <div className="flex flex-col gap-2 py-2 bg-[#1a1a18] rounded-b-[.4vw]">
                     <div className="h-[3px] bg-[#5b5b5b] overflow-hidden w-[90%] mx-auto rounded-full">
@@ -901,9 +896,8 @@ export default function Carousel({
       <button
         ref={prevRef}
         style={{ height: swiperHeight + 1 || "100%" }}
-        className={`group/left absolute -left-[3.19%] -bottom-[0.5px] z-20 bg-black/50 group-hover/carousel:bg-black/80 text-transparent group-hover/carousel:text-white w-[3%] flex items-center justify-center rounded-e-sm transition-all ease-in-out duration-100 cursor-pointer ${
-          canSlidePrev ? "visible" : "invisible"
-        }`}
+        className={`group/left absolute -left-[3.19%] -bottom-[0.5px] z-20 bg-black/50 group-hover/carousel:bg-black/80 text-transparent group-hover/carousel:text-white w-[3%] flex items-center justify-center rounded-e-sm transition-all ease-in-out duration-100 cursor-pointer ${canSlidePrev ? "visible" : "invisible"
+          }`}
         disabled={!canSlidePrev}
       >
         <ChevronLeft
@@ -914,9 +908,8 @@ export default function Carousel({
       <button
         ref={nextRef}
         style={{ height: swiperHeight + 1 || "100%" }}
-        className={`group/right absolute -right-[3.19%] -bottom-[0.5px] z-20 bg-black/50 group-hover/carousel:bg-black/80 text-transparent group-hover/carousel:text-white w-[3%] flex items-center justify-center rounded-s-sm transition-all ease-in-out duration-100 cursor-pointer ${
-          canSlideNext ? "visible" : "invisible"
-        }`}
+        className={`group/right absolute -right-[3.19%] -bottom-[0.5px] z-20 bg-black/50 group-hover/carousel:bg-black/80 text-transparent group-hover/carousel:text-white w-[3%] flex items-center justify-center rounded-s-sm transition-all ease-in-out duration-100 cursor-pointer ${canSlideNext ? "visible" : "invisible"
+          }`}
         disabled={!canSlideNext}
       >
         <ChevronRight

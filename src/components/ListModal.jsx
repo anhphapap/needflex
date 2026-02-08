@@ -218,21 +218,21 @@ function ListModal({ isOpen, onClose, nameList, params, sortField = "_id" }) {
                     <>
                       {item.episode_current.toLowerCase().includes("hoàn tất") ||
                         item.episode_current.toLowerCase().includes("full") ? (
-                        <span className="absolute bottom-0 left-1/2 -translate-x-1/2 text-white w-[80%] sm:w-auto bg-[#e50914] py-[2px] px-2 rounded-t text-xs font-semibold text-center shadow-black/80 shadow">
+                        <span className="line-clamp-1 absolute bottom-0 left-1/2 -translate-x-1/2 text-white w-[80%] sm:w-auto bg-[#e50914] py-[2px] px-2 rounded-t text-xs font-semibold text-center shadow-black/80 shadow">
                           Mới thêm
                         </span>
                       ) : item.episode_current
                         .toLowerCase()
                         .includes("trailer") ? (
-                        <span className="absolute bottom-0 left-1/2 -translate-x-1/2 text-black w-[80%] sm:w-auto bg-white py-[2px] px-2 rounded-t text-xs font-semibold text-center shadow-black/80 shadow">
+                        <span className="line-clamp-1 absolute bottom-0 left-1/2 -translate-x-1/2 text-black w-[80%] sm:w-auto bg-white py-[2px] px-2 rounded-t text-xs font-semibold text-center shadow-black/80 shadow">
                           Sắp ra mắt
                         </span>
                       ) : (
                         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 flex xl:flex-row flex-col rounded-t overflow-hidden w-[80%] sm:w-1/2 xl:w-[70%] 2xl:w-[60%]">
-                          <span className=" text-white bg-[#e50914] xl:py-[2px] py-[1px] px-1 text-xs font-semibold text-center shadow-black/80 shadow w-full">
+                          <span className="line-clamp-1 text-white bg-[#e50914] xl:py-[2px] py-[1px] px-1 text-xs font-semibold text-center shadow-black/80 shadow w-full">
                             Tập mới
                           </span>
-                          <span className="text-black bg-white xl:py-[2px] py-[1px] px-1 text-xs font-semibold text-center shadow-black/80 shadow w-full">
+                          <span className="line-clamp-1 text-black bg-white xl:py-[2px] py-[1px] px-1 text-xs font-semibold text-center shadow-black/80 shadow w-full">
                             Xem ngay
                           </span>
                         </div>

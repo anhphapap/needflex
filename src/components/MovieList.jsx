@@ -87,9 +87,8 @@ const MovieList = ({
       var api = null;
 
       if (!search) {
-        api = `${
-          import.meta.env.VITE_API_LIST
-        }${type_slug}?sort_field=${sort_field}&category=${category}&country=${country}&year=${year}`;
+        api = `${import.meta.env.VITE_API_LIST
+          }${type_slug}?sort_field=${sort_field}&category=${category}&country=${country}&year=${year}`;
       } else {
         const encodedQuery = keyword.trim().replace(/ /g, "+");
         api = `${import.meta.env.VITE_API_SEARCH}keyword=${encodedQuery}`;
@@ -99,7 +98,7 @@ const MovieList = ({
         const listResponse = await axios.get(`${api}&page=${page}`);
         const totalPages = Math.ceil(
           listResponse.data.data.params.pagination.totalItems /
-            listResponse.data.data.params.pagination.totalItemsPerPage
+          listResponse.data.data.params.pagination.totalItemsPerPage
         );
 
         if (page > totalPages) {
@@ -161,21 +160,21 @@ const MovieList = ({
           Không có kết quả nào khớp với yêu cầu tìm kiếm "{keyword}" của bạn.
         </h1>
       )) || (
-        <h1 className="text-xl md:text-2xl">
-          {(search && (
-            <>
-              <span className="opacity-50">Kết quả tìm kiếm của: </span>
-              <span>{keyword}</span>
-            </>
-          )) || (
-            <span className="opacity-50 ">
-              {!loading &&
-                movies.length === 0 &&
-                "Không có kết quả nào khớp với yêu cầu tìm kiếm của bạn."}
-            </span>
-          )}
-        </h1>
-      )}
+          <h1 className="text-xl md:text-2xl">
+            {(search && (
+              <>
+                <span className="opacity-50">Kết quả tìm kiếm của: </span>
+                <span>{keyword}</span>
+              </>
+            )) || (
+                <span className="opacity-50 ">
+                  {!loading &&
+                    movies.length === 0 &&
+                    "Không có kết quả nào khớp với yêu cầu tìm kiếm của bạn."}
+                </span>
+              )}
+          </h1>
+        )}
       <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 md:gap-x-[.4vw] gap-x-[.8vw] md:gap-y-[4vw] gap-y-[8vw] mt-5">
         {movies?.map((item, index) => (
           <div
@@ -237,28 +236,28 @@ const MovieList = ({
             )}
             {new Date().getTime() - new Date(item.modified?.time).getTime() <
               1000 * 60 * 60 * 24 * 3 && (
-              <>
-                {item.episode_current.toLowerCase().includes("hoàn tất") ||
-                item.episode_current.toLowerCase().includes("full") ? (
-                  <span className="text-nowrap absolute bottom-0 left-1/2 -translate-x-1/2 text-white w-auto bg-[#e50914] py-[2px] px-2 rounded-t text-xs font-semibold text-center shadow-black/80 shadow">
-                    Mới thêm
-                  </span>
-                ) : item.episode_current.toLowerCase().includes("trailer") ? (
-                  <span className="text-nowrap absolute bottom-0 left-1/2 -translate-x-1/2 text-black w-auto bg-white py-[2px] px-2 rounded-t text-xs font-semibold text-center shadow-black/80 shadow">
-                    Sắp ra mắt
-                  </span>
-                ) : (
-                  <div className="text-nowrap absolute bottom-0 left-1/2 -translate-x-1/2 flex xl:flex-row flex-col rounded-t overflow-hidden w-auto">
-                    <span className="text-nowrap text-white bg-[#e50914] xl:py-[2px] py-[1px] px-2 text-xs font-semibold text-center shadow-black/80 shadow">
-                      Tập mới
+                <>
+                  {item.episode_current.toLowerCase().includes("hoàn tất") ||
+                    item.episode_current.toLowerCase().includes("full") ? (
+                    <span className="line-clamp-1 text-nowrap absolute bottom-0 left-1/2 -translate-x-1/2 text-white w-auto bg-[#e50914] py-[2px] px-2 rounded-t text-xs font-semibold text-center shadow-black/80 shadow">
+                      Mới thêm
                     </span>
-                    <span className="text-nowrap text-black bg-white xl:py-[2px] py-[1px] px-2 text-xs font-semibold text-center shadow-black/80 shadow">
-                      Xem ngay
+                  ) : item.episode_current.toLowerCase().includes("trailer") ? (
+                    <span className="line-clamp-1 text-nowrap absolute bottom-0 left-1/2 -translate-x-1/2 text-black w-auto bg-white py-[2px] px-2 rounded-t text-xs font-semibold text-center shadow-black/80 shadow">
+                      Sắp ra mắt
                     </span>
-                  </div>
-                )}
-              </>
-            )}
+                  ) : (
+                    <div className="text-nowrap absolute bottom-0 left-1/2 -translate-x-1/2 flex xl:flex-row flex-col rounded-t overflow-hidden w-auto">
+                      <span className="line-clamp-1 text-nowrap text-white bg-[#e50914] xl:py-[2px] py-[1px] px-2 text-xs font-semibold text-center shadow-black/80 shadow">
+                        Tập mới
+                      </span>
+                      <span className="line-clamp-1 text-nowrap text-black bg-white xl:py-[2px] py-[1px] px-2 text-xs font-semibold text-center shadow-black/80 shadow">
+                        Xem ngay
+                      </span>
+                    </div>
+                  )}
+                </>
+              )}
           </div>
         ))}
         {loading && (
