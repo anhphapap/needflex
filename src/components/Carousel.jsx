@@ -323,17 +323,17 @@ export default function Carousel({
                           .toLowerCase()
                           .includes("hoàn tất") ||
                           item.episode_current.toLowerCase().includes("full") ? (
-                          <span className="text-nowrap absolute bottom-0 left-1/2 -translate-x-1/2 text-white w-auto bg-[#e50914] py-[2px] px-2 rounded-t text-xs font-semibold text-center shadow-black/80 shadow">
+                          <span className="text-nowrap absolute bottom-0 left-1/2 -translate-x-1/2 text-white w-[80%] bg-[#e50914] py-[2px] px-2 rounded-t text-xs font-semibold text-center shadow-black/80 shadow">
                             Mới thêm
                           </span>
                         ) : item.episode_current
                           .toLowerCase()
                           .includes("trailer") ? (
-                          <span className="text-nowrap absolute bottom-0 left-1/2 -translate-x-1/2 text-black w-auto bg-white py-[2px] px-2 rounded-t text-xs font-semibold text-center shadow-black/80 shadow">
+                          <span className="text-nowrap absolute bottom-0 left-1/2 -translate-x-1/2 text-black w-[80%] bg-white py-[2px] px-2 rounded-t text-xs font-semibold text-center shadow-black/80 shadow">
                             Sắp ra mắt
                           </span>
                         ) : (
-                          <div className="text-nowrap absolute bottom-0 left-1/2 -translate-x-1/2 flex flex-col rounded-t overflow-hidden w-auto">
+                          <div className="text-nowrap absolute bottom-0 left-1/2 -translate-x-1/2 flex flex-col rounded-t overflow-hidden w-[80%]">
                             <span className="text-nowrap text-white bg-[#e50914] xl:py-[2px] py-[1px] px-2 text-xs font-semibold text-center shadow-black/80 shadow">
                               Tập mới
                             </span>
@@ -793,17 +793,17 @@ export default function Carousel({
                             .toLowerCase()
                             .includes("hoàn tất") ||
                             item.episode_current.toLowerCase().includes("full") ? (
-                            <span className="text-nowrap absolute bottom-0 left-1/2 -translate-x-1/2 text-white w-auto bg-[#e50914] py-[2px] px-2 rounded-t text-xs font-semibold text-center shadow-black/80 shadow">
+                            <span className="text-nowrap w-[80%] absolute bottom-0 left-1/2 -translate-x-1/2 text-white bg-[#e50914] py-[2px] px-2 rounded-t text-xs font-semibold text-center shadow-black/80 shadow">
                               Mới thêm
                             </span>
                           ) : item.episode_current
                             .toLowerCase()
                             .includes("trailer") ? (
-                            <span className="text-nowrap absolute bottom-0 left-1/2 -translate-x-1/2 text-black w-auto bg-white py-[2px] px-2 rounded-t text-xs font-semibold text-center shadow-black/80 shadow">
+                            <span className="text-nowrap w-[80%] absolute bottom-0 left-1/2 -translate-x-1/2 text-black bg-white py-[2px] px-2 rounded-t text-xs font-semibold text-center shadow-black/80 shadow">
                               Sắp ra mắt
                             </span>
                           ) : (
-                            <div className="text-nowrap absolute bottom-0 left-1/2 -translate-x-1/2 flex xl:flex-row flex-col rounded-t overflow-hidden w-auto">
+                            <div className="text-nowrap w-[80%] absolute bottom-0 left-1/2 -translate-x-1/2 flex xl:flex-row flex-col rounded-t overflow-hidden">
                               <span className="text-nowrap text-white bg-[#e50914] xl:py-[2px] py-[1px] px-2 text-xs font-semibold text-center shadow-black/80 shadow">
                                 Tập mới
                               </span>
