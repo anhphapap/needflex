@@ -271,6 +271,13 @@ const VideoPlayer = ({
   useEffect(() => {
     const video = videoRef.current;
 
+    // Setup iOS Safari specific attributes
+    if (video) {
+      video.setAttribute('webkit-playsinline', 'true');
+      video.setAttribute('x-webkit-airplay', 'allow');
+      video.setAttribute('x5-playsinline', 'true');
+    }
+
     // Cleanup HLS instance cũ trước khi tạo mới
     if (hlsRef.current) {
       hlsRef.current.destroy();
@@ -1403,6 +1410,10 @@ const VideoPlayer = ({
         onClick={isMobile ? undefined : handleVideoClick}
         preload="auto"
         playsInline
+        webkit-playsinline="true"
+        x5-playsinline="true"
+        controlsList="nodownload nofullscreen noremoteplayback"
+        disablePictureInPicture={false}
       />
 
       {/* Loading indicator - khi video chưa ready */}

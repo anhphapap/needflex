@@ -73,19 +73,17 @@ const Header = ({ filter = false, type_slug = "" }) => {
       className={`fixed flex flex-col top-0 left-0 right-0 z-50 transition-all duration-500 ease-linear text-sm`}
     >
       <div
-        className={`block md:hidden h-screen w-full absolute top-0 left-0 bg-black/50 z-0 ${
-          showMenu ? "block" : "hidden"
-        }`}
+        className={`block md:hidden h-screen w-full absolute top-0 left-0 bg-black/50 z-0 ${showMenu ? "block" : "hidden"
+          }`}
         onClick={() => setShowMenu(false)}
       ></div>
       <div
-        className={`flex items-center justify-start z-10 py-2 px-[3%] transition-all duration-500 ease-linear text-white sm:py-3 md:py-4 ${
-          filter || pathname.startsWith("/yeu-thich")
-            ? "bg-gradient-to-b from-[#080808] to-[#141414]"
-            : isScrolled || showMenu || playing
+        className={`flex items-center justify-start z-10 py-2 px-[3%] transition-all duration-500 ease-linear text-white sm:py-3 md:py-4 ${filter || pathname.startsWith("/yeu-thich")
+          ? "bg-gradient-to-b from-[#080808] to-[#141414]"
+          : isScrolled || showMenu || playing
             ? "bg-[#141414]"
             : "bg-gradient-to-b from-black/70 to-transparent"
-        }`}
+          }`}
         id="header"
       >
         <div className="flex flex-row md:flex items-center justify-between w-full">
@@ -103,35 +101,40 @@ const Header = ({ filter = false, type_slug = "" }) => {
               )}
             </button>
           </div>
-          <div className="md:hidden h-8 flex justify-center p-1">
-            <Link to="/trang-chu" className="cursor-pointer">
+          <div className="md:hidden h-8 flex justify-center items-center p-1">
+            <Link to="/trang-chu" className="cursor-pointer flex items-center h-full">
               <img
                 src={logo_full}
-                className="object-cover h-full"
+                className="object-contain h-full w-auto max-w-full"
                 alt="Needflex"
-              ></img>
+                style={{ WebkitUserSelect: 'none', userSelect: 'none' }}
+              />
             </Link>
           </div>
           {/* </div> */}
           <div className="hidden md:flex items-center justify-start flex-shink-0">
             <Link
               to="/trang-chu"
-              className="w-[20%] mt-1 mr-4 flex-shrink-0 cursor-pointer"
+              className="w-[20%] mt-1 mr-4 flex-shrink-0 cursor-pointer flex items-center"
             >
-              <img src={logo_full} className="object-cover h-full"></img>
+              <img
+                src={logo_full}
+                className="object-contain h-full w-auto max-w-full"
+                alt="Needflex"
+                style={{ WebkitUserSelect: 'none', userSelect: 'none' }}
+              />
             </Link>
             <nav className=" space-x-4 flex flex-shrink-0">
               {navigation.slice(0, 5).map((item, index) => (
                 <Link
                   to={item.href}
                   onClick={() => setOnTab(index)}
-                  className={` ${
-                    onTab === index ||
+                  className={` ${onTab === index ||
                     (item.href.split("/")[1] === pathname.split("/")[1] &&
                       index === 0)
-                      ? "font-medium text-white"
-                      : "text-white/80 hover:opacity-70 cursor-pointer"
-                  }`}
+                    ? "font-medium text-white"
+                    : "text-white/80 hover:opacity-70 cursor-pointer"
+                    }`}
                   key={item.href}
                 >
                   {item.name}
@@ -142,11 +145,10 @@ const Header = ({ filter = false, type_slug = "" }) => {
                   <Link
                     to="/yeu-thich"
                     onClick={() => setOnTab(6)}
-                    className={` ${
-                      "/yeu-thich" === pathname && onTab === 6
-                        ? "font-medium text-white"
-                        : "text-white/80 hover:opacity-70 cursor-pointer"
-                    }`}
+                    className={` ${"/yeu-thich" === pathname && onTab === 6
+                      ? "font-medium text-white"
+                      : "text-white/80 hover:opacity-70 cursor-pointer"
+                      }`}
                   >
                     Yêu thích
                   </Link>
@@ -222,9 +224,8 @@ const Header = ({ filter = false, type_slug = "" }) => {
         </div>
       </div>
       <div
-        className={`bg-[#141414] md:hidden border-y-[1px] border-white z-10 ${
-          showMenu ? "block" : "hidden"
-        }`}
+        className={`bg-[#141414] md:hidden border-y-[1px] border-white z-10 ${showMenu ? "block" : "hidden"
+          }`}
         id="mobile-menu"
       >
         {/* <Search open={true} /> */}
@@ -236,11 +237,10 @@ const Header = ({ filter = false, type_slug = "" }) => {
                 setOnTab(index);
                 setShowMenu(false);
               }}
-              className={` hover:bg-white/5 hover:text-white  block rounded-md px-3 py-2 cursor-pointer font-medium ${
-                onTab === index || (item.href === pathname && index === 0)
-                  ? "bg-white/15 text-white"
-                  : "text-white/70"
-              }`}
+              className={` hover:bg-white/5 hover:text-white  block rounded-md px-3 py-2 cursor-pointer font-medium ${onTab === index || (item.href === pathname && index === 0)
+                ? "bg-white/15 text-white"
+                : "text-white/70"
+                }`}
               key={item.href}
             >
               {item.name}
@@ -265,11 +265,10 @@ const Header = ({ filter = false, type_slug = "" }) => {
               <Link
                 to="/tai-khoan"
                 onClick={() => setShowMenu(false)}
-                className={`text-white/70 hover:bg-white/10 hover:text-white rounded-md px-3 py-2 font-medium flex items-center space-x-2 cursor-pointer ${
-                  "/tai-khoan" === pathname && onTab === 4
-                    ? "bg-white/15 text-white"
-                    : "text-white/70"
-                }`}
+                className={`text-white/70 hover:bg-white/10 hover:text-white rounded-md px-3 py-2 font-medium flex items-center space-x-2 cursor-pointer ${"/tai-khoan" === pathname && onTab === 4
+                  ? "bg-white/15 text-white"
+                  : "text-white/70"
+                  }`}
               >
                 <FontAwesomeIcon icon="fa-solid fa-user" />
                 <span>Tài khoản</span>
@@ -277,11 +276,10 @@ const Header = ({ filter = false, type_slug = "" }) => {
               <Link
                 to="/yeu-thich"
                 onClick={() => setShowMenu(false)}
-                className={`text-white/70 hover:bg-white/10 hover:text-white rounded-md px-3 py-2 font-medium flex items-center space-x-2 cursor-pointer ${
-                  "/yeu-thich" === pathname && onTab === 5
-                    ? "bg-white/15 text-white"
-                    : "text-white/70"
-                }`}
+                className={`text-white/70 hover:bg-white/10 hover:text-white rounded-md px-3 py-2 font-medium flex items-center space-x-2 cursor-pointer ${"/yeu-thich" === pathname && onTab === 5
+                  ? "bg-white/15 text-white"
+                  : "text-white/70"
+                  }`}
               >
                 <FontAwesomeIcon icon="fa-solid fa-heart" />
                 <span>Yêu thích</span>
@@ -298,21 +296,19 @@ const Header = ({ filter = false, type_slug = "" }) => {
             <>
               <Link
                 to="/dang-ky"
-                className={`text-white/70 hover:bg-white/10 hover:text-white rounded-md px-3 py-2 font-medium flex items-center space-x-2 cursor-pointer ${
-                  "/dang-ky" === pathname && onTab === 6
-                    ? "bg-white/15 text-white"
-                    : "text-white/70"
-                }`}
+                className={`text-white/70 hover:bg-white/10 hover:text-white rounded-md px-3 py-2 font-medium flex items-center space-x-2 cursor-pointer ${"/dang-ky" === pathname && onTab === 6
+                  ? "bg-white/15 text-white"
+                  : "text-white/70"
+                  }`}
               >
                 Đăng ký
               </Link>
               <Link
                 to="/dang-nhap"
-                className={`text-white/70 hover:bg-white/10 hover:text-white rounded-md px-3 py-2 font-medium flex items-center space-x-2 cursor-pointer ${
-                  "/dang-nhap" === pathname && onTab === 7
-                    ? "bg-white/15 text-white"
-                    : "text-white/70"
-                }`}
+                className={`text-white/70 hover:bg-white/10 hover:text-white rounded-md px-3 py-2 font-medium flex items-center space-x-2 cursor-pointer ${"/dang-nhap" === pathname && onTab === 7
+                  ? "bg-white/15 text-white"
+                  : "text-white/70"
+                  }`}
               >
                 Đăng nhập
               </Link>
@@ -324,11 +320,10 @@ const Header = ({ filter = false, type_slug = "" }) => {
       {filter && <FilterNavbar open={showMenu} />}
       {pathname.startsWith("/yeu-thich") && (
         <div
-          className={`lg:flex-row flex-col flex lg:items-center justify-between py-3 transition-all duration-500 ease-linear text-white ${
-            isScrolled || showMenu || playing
-              ? "bg-[#141414]"
-              : "bg-transparent"
-          }`}
+          className={`lg:flex-row flex-col flex lg:items-center justify-between py-3 transition-all duration-500 ease-linear text-white ${isScrolled || showMenu || playing
+            ? "bg-[#141414]"
+            : "bg-transparent"
+            }`}
         >
           <h1 className="text-2xl lg:text-3xl text-white px-[3%]">
             {favoritesPage.length > 0
