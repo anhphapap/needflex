@@ -42,9 +42,8 @@ export default function SplashScreen({ onFinish }) {
     <AnimatePresence>
       <motion.div
         key="splash"
-        className={`fixed inset-0 flex flex-col items-center justify-center bg-black z-[9999] ${
-          fade ? "pointer-events-none" : ""
-        }`}
+        className={`fixed inset-0 flex flex-col items-center justify-center bg-black z-[99999] ${fade ? "pointer-events-none" : ""
+          }`}
         initial={{ opacity: 1 }}
         animate={{ opacity: fade ? 0 : 1 }}
         transition={{ duration: 0.6, ease: "easeInOut" }}
