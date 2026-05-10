@@ -41,25 +41,49 @@ export default async function handler(req, res) {
     const mapped = await Promise.allSettled(
       topItems.map(async (item) => {
         try {
+          console.log(
+            `[OPHIM MAP] Processing TMDB ID: ${item.id} (${item.name || item.original_title})`,
+          );
+
           const ophimRes = await fetch(
             `${process.env.API_SEARCH}keyword=${item.id}`,
           );
 
-          if (!ophimRes.ok) return null;
+          if (!ophimRes.ok) {
+            console.warn(
+              `[OPHIM MAP] ❌ API search failed for TMDB ${item.id}: ${ophimRes.status}`,
+            );
+            return null;
+          }
 
           const ophimData = await ophimRes.json();
 
           const total = ophimData?.data?.params?.pagination?.totalItems || 0;
 
-          if (total === 0) return null;
+          if (total === 0) {
+            console.warn(`[OPHIM MAP] ⚠️ No results found for TMDB ${item.id}`);
+            return null;
+          }
 
           const movie = ophimData?.data?.items?.[0];
 
-          if (!movie?.tmdb?.id) return null;
-
-          if (String(movie.tmdb.id) !== String(item.id)) {
+          if (!movie?.tmdb?.id) {
+            console.warn(
+              `[OPHIM MAP] ⚠️ Movie found but missing tmdb ID for TMDB ${item.id}`,
+            );
             return null;
           }
+
+          if (String(movie.tmdb.id) !== String(item.id)) {
+            console.warn(
+              `[OPHIM MAP] ⚠️ TMDB ID mismatch: expected ${item.id}, got ${movie.tmdb.id}`,
+            );
+            return null;
+          }
+
+          console.log(
+            `[OPHIM MAP] ✅ Success: TMDB ${item.id} → Ophim ${movie._id}`,
+          );
 
           return {
             _id: movie._id,
@@ -76,7 +100,11 @@ export default async function handler(req, res) {
             country: movie.country,
             tmdb: movie.tmdb,
           };
-        } catch {
+        } catch (err) {
+          console.error(
+            `[OPHIM MAP] ❌ Exception for TMDB ${item.id}:`,
+            err.message,
+          );
           return null;
         }
       }),
@@ -87,12 +115,20 @@ export default async function handler(req, res) {
       .filter(Boolean)
       .slice(0, 10);
 
+    const successCount = mapped.filter(
+      (r) => r.status === "fulfilled" && r.value,
+    ).length;
+    const failureCount = mapped.length - successCount;
+
+    console.log(
+      `[MOBILE TRENDING] Mapping results: ${successCount} ✅ / ${failureCount} ❌ out of ${mapped.length}`,
+    );
     console.log(
       `[MOBILE TRENDING] Mapped ${mapped.length} → Filtered ${movies.length}`,
     );
     if (movies.length === 0) {
       console.warn(
-        `[MOBILE TRENDING] 0 movies after filtering! Check API_SEARCH or TMDB_KEY`,
+        `[MOBILE TRENDING] 0 movies after filtering! Check API_SEARCH=${process.env.API_SEARCH} or TMDB_KEY`,
       );
     }
 
