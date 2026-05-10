@@ -20,7 +20,7 @@ export default async function handler(req, res) {
 
     // tmdb
     const tmdbRes = await fetch(
-      `https://api.themoviedb.org/3/trending/${type}/${time}?api_key=${TMDB_KEY}&language=vi-VN`,
+      `https://api.themoviedb.org/3/trending/${type}/${time}?api_key=${process.env.TMDB_KEY}&language=vi-VN`,
     );
 
     if (!tmdbRes.ok) {
@@ -41,7 +41,9 @@ export default async function handler(req, res) {
     const mapped = await Promise.allSettled(
       topItems.map(async (item) => {
         try {
-          const ophimRes = await fetch(`${API_SEARCH}keyword=${item.id}`);
+          const ophimRes = await fetch(
+            `${process.env.API_SEARCH}keyword=${item.id}`,
+          );
 
           if (!ophimRes.ok) return null;
 
