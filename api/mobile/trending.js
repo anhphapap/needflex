@@ -14,16 +14,13 @@ export default async function handler(req, res) {
     // cache
     const cached = cache.get(cacheKey);
 
-    if (
-      cached &&
-      Date.now() - cached.timestamp < CACHE_TTL
-    ) {
+    if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
       return res.status(200).json(cached.data);
     }
 
     // tmdb
     const tmdbRes = await fetch(
-      `https://api.themoviedb.org/3/trending/${type}/${time}?api_key=${process.env.TMDB_KEY}&language=vi-VN`
+      `https://api.themoviedb.org/3/trending/${type}/${time}?api_key=${process.env.TMDB_KEY}&language=vi-VN`,
     );
 
     if (!tmdbRes.ok) {
@@ -39,28 +36,22 @@ export default async function handler(req, res) {
       topItems.map(async (item) => {
         try {
           const ophimRes = await fetch(
-            `${process.env.API_SEARCH}keyword=${item.id}`
+            `${process.env.API_SEARCH}keyword=${item.id}`,
           );
 
           if (!ophimRes.ok) return null;
 
           const ophimData = await ophimRes.json();
 
-          const total =
-            ophimData?.data?.params?.pagination
-              ?.totalItems || 0;
+          const total = ophimData?.data?.params?.pagination?.totalItems || 0;
 
           if (total === 0) return null;
 
-          const movie =
-            ophimData?.data?.items?.[0];
+          const movie = ophimData?.data?.items?.[0];
 
           if (!movie?.tmdb?.id) return null;
 
-          if (
-            String(movie.tmdb.id) !==
-            String(item.id)
-          ) {
+          if (String(movie.tmdb.id) !== String(item.id)) {
             return null;
           }
 
@@ -74,8 +65,7 @@ export default async function handler(req, res) {
             quality: movie.quality,
             lang: movie.lang,
             year: movie.year,
-            episode_current:
-              movie.episode_current,
+            episode_current: movie.episode_current,
             category: movie.category,
             country: movie.country,
             tmdb: movie.tmdb,
@@ -83,15 +73,11 @@ export default async function handler(req, res) {
         } catch {
           return null;
         }
-      })
+      }),
     );
 
     const movies = mapped
-      .map((r) =>
-        r.status === "fulfilled"
-          ? r.value
-          : null
-      )
+      .map((r) => (r.status === "fulfilled" ? r.value : null))
       .filter(Boolean)
       .slice(0, 10);
 
