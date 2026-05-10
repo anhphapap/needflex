@@ -39,7 +39,7 @@ export default async function handler(req, res) {
       topItems.map(async (item) => {
         try {
           const ophimRes = await fetch(
-            `${process.env.OPHIM_API}keyword=${item.id}`
+            `${process.env.API_SEARCH}keyword=${item.id}`
           );
 
           if (!ophimRes.ok) return null;
