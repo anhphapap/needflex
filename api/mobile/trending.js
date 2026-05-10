@@ -1,6 +1,8 @@
 const cache = new Map();
 
 const CACHE_TTL = 1000 * 60 * 10;
+const API_SEARCH =
+  process.env.API_SEARCH || "https://ophim1.com/v1/api/tim-kiem?";
 
 export default async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -45,9 +47,7 @@ export default async function handler(req, res) {
             `[OPHIM MAP] Processing TMDB ID: ${item.id} (${item.name || item.original_title})`,
           );
 
-          const ophimRes = await fetch(
-            `${process.env.API_SEARCH}keyword=${item.id}`,
-          );
+          const ophimRes = await fetch(`${API_SEARCH}keyword=${item.id}`);
 
           if (!ophimRes.ok) {
             console.warn(
@@ -128,7 +128,7 @@ export default async function handler(req, res) {
     );
     if (movies.length === 0) {
       console.warn(
-        `[MOBILE TRENDING] 0 movies after filtering! Check API_SEARCH=${process.env.API_SEARCH} or TMDB_KEY`,
+        `[MOBILE TRENDING] 0 movies after filtering! API_SEARCH=${API_SEARCH} | TMDB_KEY=${process.env.TMDB_KEY ? "✅" : "❌"}`,
       );
     }
 
