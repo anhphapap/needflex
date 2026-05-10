@@ -20,24 +20,28 @@ export default async function handler(req, res) {
 
     // tmdb
     const tmdbRes = await fetch(
-      `https://api.themoviedb.org/3/trending/${type}/${time}?api_key=${process.env.TMDB_KEY}&language=vi-VN`,
+      `https://api.themoviedb.org/3/trending/${type}/${time}?api_key=${TMDB_KEY}&language=vi-VN`,
     );
 
     if (!tmdbRes.ok) {
+      console.error(`❌ TMDB API error: ${tmdbRes.status}`);
       throw new Error("TMDB fetch failed");
     }
 
     const tmdbData = await tmdbRes.json();
+    console.log(
+      `[MOBILE TRENDING] TMDB API response status: ${tmdbRes.status}`,
+    );
 
     const topItems = (tmdbData.results || []).slice(0, 20);
+
+    console.log(`[MOBILE TRENDING] TMDB returned ${topItems.length} items`);
 
     // convert -> ophim
     const mapped = await Promise.allSettled(
       topItems.map(async (item) => {
         try {
-          const ophimRes = await fetch(
-            `${process.env.API_SEARCH}keyword=${item.id}`,
-          );
+          const ophimRes = await fetch(`${API_SEARCH}keyword=${item.id}`);
 
           if (!ophimRes.ok) return null;
 
@@ -80,6 +84,15 @@ export default async function handler(req, res) {
       .map((r) => (r.status === "fulfilled" ? r.value : null))
       .filter(Boolean)
       .slice(0, 10);
+
+    console.log(
+      `[MOBILE TRENDING] Mapped ${mapped.length} → Filtered ${movies.length}`,
+    );
+    if (movies.length === 0) {
+      console.warn(
+        `[MOBILE TRENDING] 0 movies after filtering! Check API_SEARCH or TMDB_KEY`,
+      );
+    }
 
     const response = {
       results: movies,
